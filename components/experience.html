@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .journey_track_main_container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .track_dot_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* width: 50px; */
+            border: 2px solid black;
+        }
+
+        .track_dot {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            background-color: black;
+        }
+
+        .track_line {
+            width: 5px;
+            background-color: black;
+        }
+
+        .track_box {
+            /* width: 100px; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* border: 2px solid black; */
+        }
+
+        .track_content_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .track_item {
+            border: 2px solid black;
+            max-width: 200px;
+            min-height: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- The only thing you need to know is the height of the box -->
+    <!--  For starting index -->
+    <!-- <div class="track_box" style="height: 100px;">
+        <div style="height: 50%;"></div>
+        <div class="track_dot"></div>
+        <div class="track_line" style="height: 50%;"></div>
+    </div> -->
+
+    <!-- For middle index -->
+    <!-- <div class="track_box" style="height: 100px;">
+        <div class="track_line" style="height: 50%;"></div>
+        <div class="track_dot"></div>
+        <div class="track_line" style="height: 50%;"></div>
+    </div> -->
+
+    <!-- For gap -->
+    <!-- <div class="track_box" style="height: 20px;">
+        <div class="track_line" style="height: 100%;"></div>
+    </div> -->
+
+    <!-- For last index -->
+    <!-- <div class="track_box" style="height: 100px;">
+        <div class="track_line" style="height: 50%;"></div>
+        <div class="track_dot"></div>
+        <div style="height: 50%;"></div>
+    </div> -->
+
+    <div class="journey_track_main_container">
+        <div class="track_dot_container"></div>
+        <div class="track_content_container">
+            <div class="track_item">
+                <span>Frontend Developer <span style="font-style: italic;">Dec 2022 - June 2023</span></span>
+                <a href="https://www.advantageclub.co/in">Advantage Club</a>
+            </div>
+            <div class="track_item">
+                <span>Designed and developed dynamic and responsive websites using HTML, CSS, JavaScript, and
+                    JQuery</span>
+            </div>
+            <div class="track_item">
+                <span>Worked with REST APIs to retrieve and display data from databases</span>
+            </div>
+            <div class="track_item">
+                <span>Improved website performance and speed through optimization techniques</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="journey_track_main_container">
+        <div class="track_dot_container"></div>
+        <div class="track_content_container">
+            <div class="track_item"></div>
+            <div class="track_item"></div>
+            <div class="track_item"></div>
+            <div class="track_item"></div>
+            <div class="track_item"></div>
+            <div class="track_item"></div>
+        </div>
+    </div> -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            console.log($(".container").height());
+            let curr_obj;
+            $(".journey_track_main_container").each(function () {
+                let $this = $(this);
+                let $trackContentContainer = $this.find(".track_content_container");
+                let content_box_height = $trackContentContainer.outerHeight();
+                let box_gap = $trackContentContainer.css("gap");
+                let dot_box_html = "";
+                let $trackItems = $trackContentContainer.find(".track_item");
+                let content_box_length = $trackItems.length;
+                let box_ht;
+
+                $trackItems.each(function (index) {
+                    box_ht = $(this).outerHeight();
+
+                    if (index === 0) { // For starting index
+                        dot_box_html += `<div class="track_box" style="height: ${box_ht}px;">
+                <div style="height: 50%;"></div>
+                <div class="track_dot"></div>
+                <div class="track_line" style="height: 50%;"></div>
+            </div>`;
+                    } else if (index === content_box_length - 1) { // For ending index
+                        dot_box_html += `<div class="track_box" style="height: ${box_ht}px;">
+                <div class="track_line" style="height: 50%;"></div>
+                <div class="track_dot"></div>
+                <div style="height: 50%;"></div>
+            </div>`;
+                    } else { // For gap as well as middle index
+                        dot_box_html += `<div class="track_box" style="height: ${box_gap}">
+                <div class="track_line" style="height: 100%;"></div>
+            </div>
+            <div class="track_box" style="height: ${box_ht}px;">
+                <div class="track_line" style="height: 50%;"></div>
+                <div class="track_dot"></div>
+                <div class="track_line" style="height: 50%;"></div>
+            </div>`;
+                    }
+                });
+
+                $this.find(".track_dot_container").css('height', content_box_height).html(dot_box_html);
+            });
+        })
+    </script>
+</body>
+
+</html>

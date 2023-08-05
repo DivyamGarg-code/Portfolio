@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .skill_icon{
+            position: relative;
+            height: fit-content;
+            width: fit-content;
+        }
+        .skill_icon_text{
+            height: 100px;
+            width: fit-content;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #A43AFF;
+            gap: 6px;
+            /* background-color: rgba(0, 0, 0, 0.08); */
+            opacity: 0 ;
+            transition: 1s;
+        }
+        .skill_icon img{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            height: 100%;
+            transition: filter 0.5s;
+            opacity: 1;
+            z-index: -1;
+        }
+
+        .skill_icon_text:hover{
+            opacity: 1;
+        }
+        .skill_icon:hover img {
+            filter: blur(3px); /* Apply blur to the image on hover */
+        }
+        .skill_icon_line{
+            width: 15px;
+            height: 1px;
+            background-color: #A43AFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="skill_icon">
+        <img src="/images/hmtl.svg" alt="error">
+        <div class="skill_icon_text">
+            <div class="skill_icon_line"></div>
+            <span>Bootstrabkuhgiuguigup</span>
+            <div class="skill_icon_line"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        } */
+        :root{
+            --dark-bg-color: black;
+            --light-bg-color: white;
+        }
+
+        .light_mode{
+            background-color: var(--light-bg-color);
+            color: var(--dark-bg-color);
+        }
+        .dark_mode{
+            background-color: var(--dark-bg-color);
+            color: var(--light-bg-color);
+        }
+        button{
+            cursor: pointer;
+            background-color: brown !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="light_mode">
+    <button class="light_mode">Toggle Mode</button>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+    integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            let color_mode=$("button").attr("class");
+            $("button").click(function(){
+                color_mode=$(this).attr("class");
+                if(color_mode=="light_mode"){
+                    $(".light_mode").addClass("dark_mode").removeClass("light_mode");
+                    color_mode="dark_mode";
+                }else{
+                    $(".dark_mode").addClass("light_mode").removeClass("dark_mode");
+                    color_mode="light_mode";
+                }
+            })
+        })
+    </script>
+</body>
+</html>

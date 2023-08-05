@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+            color: white;
+            scroll-behavior: smooth;
+            background: #0F2027;
+        }
+
+        .h1 {
+            font-size: 60px;
+        }
+
+        .h2 {
+            font-size: 50px;
+        }
+
+        .h3 {
+            font-size: 40px;
+        }
+
+        .h4 {
+            font-size: 30px;
+        }
+
+        .h5 {
+            font-size: 20px;
+        }
+
+        .h6 {
+            font-size: 15px;
+        }
+
+        .template {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 30px ;
+        }
+
+        .intro_container {
+            max-width: 1200px;
+            width: 95vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .heading_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+      
+
+        .text_h1 {
+            font-weight: 600;
+        }
+
+        .text_h2 {
+            color: #A43AFF;
+            text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            font-weight: 700;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translatey(-20px);
+            }
+
+            100% {
+                transform: translatey(0px);
+            }
+        }
+
+        #profile_pic {
+            max-width: 500px;
+            width: 50%;
+            transform: translatey(0px);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @media only screen and (max-width:1000px){
+            .intro_container{
+                flex-direction: column-reverse;
+                width: 95%;
+                height: auto;
+                justify-content: center;
+                gap: 20px;
+            }
+            .heading_container{
+                width: 100%;
+                align-items: center;
+                text-align: center  ;
+                letter-spacing: 2px;
+            }
+            #profile_pic{
+                width: 100%;
+                max-width: 300px;
+            }   
+            .h2{
+                font-size: 30px;
+            }
+            .h3{
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="template">
+        <section class="intro_container">
+            <div class="heading_container">
+                <span class="text_h1 h3">Hi 👋,</span>
+                <span class="text_h1 h3">My name is</span>
+                <span class="text_h2 h2">DIVYAM GARG</span>
+                <span class="text_h1 h3">I'm a Software Engineer </span>
+                <span class="text_h1 h3">& I build things for web</span>
+            </div>
+            <img id="profile_pic" src="/images/profile_pic.svg" alt="error">
+        </section>
+    </div>
+
+</body>
+
+</html>

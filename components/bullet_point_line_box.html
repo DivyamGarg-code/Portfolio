@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main_container{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .dot_container {
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            align-items: center;
+            /* width: 50px; */
+            border: 2px solid black;
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            background-color: black;
+        }
+
+        .line {
+            width: 5px;
+            background-color: black;
+        }
+
+        .box {
+            width: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* border: 2px solid black; */
+        }
+
+        .content_main_box {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .item {
+            border: 2px solid black;
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- The only thing you need to know is the height of the box -->
+    <!--  For starting index -->
+    <div class="box" style="height: 100px;">
+        <div style="height: 50%;"></div>
+        <div class="dot"></div>
+        <div class="line" style="height: 50%;"></div>
+    </div>
+
+    <!-- For middle index -->
+    <div class="box" style="height: 100px;">
+        <div class="line" style="height: 50%;"></div>
+        <div class="dot"></div>
+        <div class="line" style="height: 50%;"></div>
+    </div>
+
+     <!-- For gap -->
+    <div class="box" style="height: 20px;">
+        <div class="line" style="height: 100%;"></div>
+    </div>
+
+    <!-- For last index -->
+    <div class="box" style="height: 100px;">
+        <div class="line" style="height: 50%;"></div>
+        <div class="dot"></div>
+        <div style="height: 50%;"></div>
+    </div>
+
+    <div class="main_container">
+        <div class="dot_container"></div>
+        <div class="content_main_box">
+            <div class="item" style="height: 200px;"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            console.log($(".container").height());
+            // The height of the line will be variable depending upon the height of each text_div
+            let content_box_className = "content_main_box";
+            let content_box_height = $(`.${content_box_className}`).outerHeight();
+            let box_gap=$(".content_main_box").css("gap");
+            let dot_box_html=``;
+            let content_box_length=$(`.${content_box_className} .item`).length;
+            console.log(content_box_length);
+            let box_ht;
+            $(`.${content_box_className} .item`).each(function (index) {
+                box_ht=$(this).outerHeight();
+                console.log(box_ht, index);
+                if(index==0){ // For starting index
+                    dot_box_html+=`<div class="box" style="height: ${box_ht}px;">
+        <div style="height: 50%;"></div>
+        <div class="dot"></div>
+        <div class="line" style="height: 50%;"></div>
+    </div>`;
+                }else if(index==content_box_length-1){ // For ending index 
+                    dot_box_html+=`<div class="box" style="height: ${box_ht}px;">
+        <div class="line" style="height: 50%;"></div>
+        <div class="dot"></div>
+        <div style="height: 50%;"></div>
+    </div>`;
+                }else{ // For gap as well as middle index
+                    dot_box_html+=`<div class="box" style="height: ${box_gap}">
+        <div class="line" style="height: 100%;"></div></div>
+        <div class="box" style="height: ${box_ht}px;">
+        <div class="line" style="height: 50%;"></div>
+        <div class="dot"></div>
+        <div class="line" style="height: 50%;"></div>
+    </div>`;
+                }
+            })
+            $(".dot_container").css('height',content_box_height).html(`${dot_box_html}`);
+            console.log(content_box_height);
+        })
+    </script>
+</body>
+
+</html>

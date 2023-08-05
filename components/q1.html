@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         .template {
+            width: 100%;
+            height: 200px;
+            background-color: #9C66FF;
+            margin: 20px 0px;
+        }
+        .content{
+            display: flex;
+            flex-direction: column;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="template"></div>
+    <div class="template"></div>
+    <div class="template"></div>
+    <div class="template" id="about">About</div>
+    <div class="template"></div>
+    <div class="template"></div>
+    <div class="template"></div>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+    integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            // Function to scroll the #about div to the top of the page
+            function scrollToAbout() {
+                // Calculate the offset of the #about div relative to the top of the page
+                var offsetTop = $('#about').offset().top-100;
+
+                // Animate scrolling to the #about div
+                $('html, body').animate({
+                    scrollTop: offsetTop
+                }, 1000); // Adjust the duration (in milliseconds) as needed
+            }
+
+            // Call the scrollToAbout function when the page is loaded
+            scrollToAbout();
+        });
+    </script>
+
+</body>
+</html>
