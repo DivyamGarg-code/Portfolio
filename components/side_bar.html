@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+            color: white;
+            scroll-behavior: smooth;
+        }
+
+        .h1 {
+            font-size: 60px;
+        }
+
+        .h2 {
+            font-size: 50px;
+        }
+
+        .h3 {
+            font-size: 40px;
+        }
+
+        .h4 {
+            font-size: 30px;
+        }
+
+        .h5 {
+            font-size: 20px;
+        }
+
+        .h6 {
+            font-size: 15px;
+        }
+
+        .navigation_bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0px 20px;
+            font-size: 50px;
+            font-weight: 400;
+            width: 100vw;
+            height: 75px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            background: #0F2027;
+            /* background: linear-gradient(to left, #2C5364, #203A43, #0F2027); */
+        }
+
+        .nav_item_layout {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon_size {
+            width: 20px;
+            cursor: pointer;
+        }
+
+        .logo_text {
+            /* font-size: 20px; */
+            font-weight: 600;
+            letter-spacing: 4.08px;
+            text-transform: uppercase;
+        }
+
+        .text_highlighting_1 {
+            text-shadow: 0px 0px 80px 0px rgba(255, 255, 255, 0.20);
+            background: linear-gradient(90deg, #F366FF 0%, #9B66FF 54.69%, #9C66FF 94.27%, #66DAFF 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav_item_container {
+            gap: 30px;
+        }
+
+        .nav_item_container span {
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav_item_container span:hover {
+            color: #A43AFF;
+            text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        /* --------------- Navbar Menu-----------------------*/
+        .navbar_menu {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .navbar_menu div {
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            transition: 0.4s;
+        }
+
+        .change .bar1 {
+            /* opacity: 0; */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .change .bar2 {
+            opacity: 0;
+        }
+
+        .change .bar3 {
+            /* opacity: 0; */
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%) rotate(-45deg);
+        }
+
+        /* -------------------------------------------------- */
+        @media only screen and (max-width:1000px) {
+
+            .nav_item_container,
+            .nav_links_container {
+                display: none;
+            }
+
+            .navbar_menu {
+                display: flex;
+            }
+        }
+
+        .nav_menu_item_overlay {
+            display: none;
+            overflow-y: auto;
+            max-height: 280px;
+            height: calc(100vh - 75px);
+        }
+
+        .nav_menu_item_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            width: 100vw;
+            padding: 20px 0px;
+            background: #0F2027;
+            transition: 0.4s;
+        }
+
+        .nav_menu_item_container span:hover {
+            color: #A43AFF;
+            text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+        }
+
+        .template {
+            width: 100%;
+            height: 200px;
+            background-color: #9C66FF;
+            margin: 20px 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="navigation_bar">
+        <nav class="navbar">
+            <div class="logo nav_item_layout">
+                <img src="/images/p_logo.svg" alt="error" style="width: 30px;">
+                <span class="logo_text text_highlighting_1 h5">PORTFOLIO</span>
+            </div>
+            <div class="navbar_menu" onclick="toggleMenu(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+        </nav>
+        <div class="nav_menu_item_overlay">
+            <div class="nav_menu_item_container">
+                <span class="h6">Home</span>
+                <span class="h6" data_id="about">About</span>
+                <span class="h6">Skills</span>
+                <span class="h6">Experience</span>
+                <span class="h6">Projects</span>
+                <span class="h6">Contact</span>
+            </div>
+        </div>
+    </section>
+    <div class="navbar"></div> 
+    <div class="template"></div>
+    <div class="template"></div>
+    <div class="template"></div>
+    <div class="template" id="about">About</div>
+    <div class="template"></div>
+    <div class="template"></div>
+    <div class="template"></div>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+        let scroll_id = "";
+        function toggleMenu(curr_obj) {
+            $(curr_obj).toggleClass("change");
+            console.log($(curr_obj).attr("class"));
+            if ($(curr_obj).attr("class") === "navbar_menu") {
+                $(".nav_menu_item_overlay").slideUp('slow');
+            } else {
+                $(".nav_menu_item_overlay").slideDown('slow');
+            }
+        }
+
+        if (window.outerWidth <= 1000) {
+            $(".navbar").html(`<div class="logo nav_item_layout">
+            <img src="/images/p_logo.svg" alt="error" style="width: 25px;">
+            <span class="logo_text text_highlighting_1 h5">PORTFOLIO</span>
+        </div>
+        <div class="navbar_menu" onclick="toggleMenu(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>`);
+        }
+
+        function scrollSection(scroll_id) {
+            // Calculate the offset of the #about div relative to the top of the page
+            var offsetTop =$(`#${scroll_id}`).offset().top-$(".navbar").height()-10;
+
+            // Animate scrolling to the #about div
+            $('html, body').animate({
+                scrollTop: offsetTop
+            }, 600); // Adjust the duration (in milliseconds) as needed
+        }
+        $(document).ready(function () {
+            $("html,body").scrollTop(0);
+            $(".nav_menu_item_overlay .nav_menu_item_container span").click(function () {
+                scroll_id = $(this).attr("data_id");
+                toggleMenu($(".navbar_menu")[0]);
+                scrollSection(scroll_id);
+            })
+        })
+    </script>
+</body>
+
+</html>

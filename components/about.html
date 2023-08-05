@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+            color: white;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background: #0f2027c1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+            background: #0F2027;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #555555a7;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+
+        .h1 {
+            font-size: 60px;
+        }
+
+        .h2 {
+            font-size: 50px;
+        }
+
+        .h3 {
+            font-size: 40px;
+        }
+
+        .h4 {
+            font-size: 30px;
+        }
+
+        .h5 {
+            font-size: 15px;
+        }
+
+        .h5 {
+            font-size: 15px;
+        }
+
+        .portfolio_main_container {
+            background: #0F2027;
+            /* background: linear-gradient(to left, #2C5364, #203A43, #0F2027); */
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 100px;
+            padding-bottom: 20px;
+        }
+
+        /* ------------------------- Header CSS --------------------------- */
+        .navigation_bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0px 20px;
+            font-size: 50px;
+            font-weight: 400;
+            width: 100vw;
+            height: 75px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            background: #0F2027;
+            border-bottom: 1px solid black;
+            /* background: linear-gradient(to right#203A43, #0F2027); */
+        }
+
+        .nav_item_layout {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon_size {
+            width: 20px;
+            cursor: pointer;
+        }
+
+        .logo_text {
+            /* font-size: 20px; */
+            font-weight: 600;
+            letter-spacing: 4.08px;
+            text-transform: uppercase;
+        }
+
+        .text_highlighting_1 {
+            text-shadow: 0px 0px 80px 0px rgba(255, 255, 255, 0.20);
+            background: linear-gradient(90deg, #F366FF 0%, #9B66FF 54.69%, #9C66FF 94.27%, #66DAFF 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav_item_container {
+            gap: 30px;
+        }
+
+        .nav_item_container span {
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav_item_container span:hover,
+        .nav_menu_item_container span:hover {
+            color: #A43AFF;
+            text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        /* --------------- Navbar Menu-----------------------*/
+        .navbar_menu {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            display: none;
+            /* display: flex; */
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .navbar_menu div {
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            transition: 0.4s;
+        }
+
+        .change .bar1 {
+            /* opacity: 0; */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .change .bar2 {
+            opacity: 0;
+        }
+
+        .change .bar3 {
+            /* opacity: 0; */
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%) rotate(-45deg);
+        }
+
+        /* -------------------------------------------------- */
+
+        /* -------------- Sidebar--------------------- */
+
+        .nav_menu_item_overlay {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: calc(100vh - 75px);
+        }
+
+        .nav_menu_item_container {
+            overflow-y: auto;
+            max-height: 230px;
+            height: calc(100vh - 75px);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            width: 100vw;
+            padding: 20px 0px;
+            background: #0F2027;
+            transition: 0.4s;
+        }
+
+
+
+        /* ----------------------- Section 1 CSS---------------------- */
+        .intro_container {
+            max-width: 1200px;
+            width: 95vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            overflow-y: hidden !important;
+        }
+
+        .heading_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+
+
+        .text_h1 {
+            font-weight: 600;
+        }
+
+        .text_h2 {
+            color: #A43AFF;
+            text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            font-weight: 700;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translatey(20px);
+            }
+
+            100% {
+                transform: translatey(0px);
+            }
+        }
+
+        #profile_pic {
+            max-width: 500px;
+            width: 50%;
+            transform: translatey(0px);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* ------------------------------------------------------------- */
+
+        .section_template {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            gap: 60px;
+            max-width: 1200px;
+            width: 95vw;
+        }
+
+        .para {
+            border-radius: 30px;
+            border: 2px solid #A43AFF;
+            padding: 40px;
+        }
+
+        .sub_heading {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .decor_line {
+            width: 50%;
+            max-width: 100px;
+            height: 6px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            background-color: #A43AFF;
+        }
+
+        /* --------------------------------------------- */
+        /* -------------------- Skills Section----------------- */
+
+        .technical_skills_container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .skill_icon {
+            position: relative;
+            height: fit-content;
+            width: fit-content;
+            z-index: 1;
+            min-width: 100px;
+        }
+
+        .skill_icon_text {
+            height: 100px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #A43AFF;
+            gap: 6px;
+            /* background-color: rgba(0, 0, 0, 0.08); */
+            opacity: 0;
+            transition: 1s;
+
+        }
+
+        .skill_icon img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 100%;
+            transition: filter 1s;
+            opacity: 1;
+            z-index: 0;
+        }
+
+        .skill_icon_text:hover {
+            cursor: default;
+            opacity: 1;
+        }
+
+        .skill_icon:hover img {
+            filter: blur(3px);
+            opacity: 0.1;
+            /* Apply blur to the image on hover */
+        }
+
+        .skill_icon_line {
+            width: 15px;
+            height: 1px;
+            background-color: #A43AFF;
+        }
+
+        .skillset_container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .skillset_item {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        /* ----------------------------------------------------- */
+
+        /* -------------- Project Card CSS ----------------------------- */
+        .cards_main_container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .card_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            /* gap: 20px; */
+            position: relative;
+            width: 300px;
+            height: auto;
+            border-radius: 20px;
+            border: 1px solid #945DD6;
+            background: rgba(54, 54, 54, 0.21);
+
+        }
+
+        .card_text_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+
+        }
+
+        .card_container:hover {
+            box-shadow: 2px 2px 5px 4px rgba(0, 0, 0, 0.53);
+        }
+
+        .card_image {
+            width: 100%;
+            max-height: 280px;
+            border-radius: 20px 20px 0px 0px;
+        }
+
+        .card_link_container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            font-size: 12px;
+        }
+
+        .card_link {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card_link img {
+            height: 20px;
+        }
+
+        /* ---------------------------------------------------- */
+
+        /* ------------------- Work Experience -------------------------- */
+        .journey_track_main_container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .track_dot_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 50px;
+            /* border: 2px solid black; */
+        }
+
+        .track_dot {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        .track_line {
+            width: 5px;
+            background-color: white;
+        }
+
+        .track_box {
+            /* width: 20px; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* border: 2px solid black; */
+        }
+
+        .track_content_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 30px;
+            max-width: 800px;
+            text-align: left;
+            font-size: 25px;
+        }
+
+        .track_item {
+            /* border: 2px solid black; */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        /* -------------------------------------------------------------- */
+        /* --------------- Contact CSS-------------------- */
+        .contact_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mail_btn {
+            display: flex;
+            flex-direction: row;
+            width: fit-content;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(217, 217, 217, 0.19);
+            text-decoration: none;
+        }
+
+        .mail_btn img {
+            height: 15px;
+        }
+
+        /* ------------------ Footer------------------ */
+        #footer {
+            width: 95vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #footer .line {
+            width: 100%;
+            height: 2px;
+            background-color: #A43AFF;
+        }
+
+        .footer_container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer_icon_container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            width: 155px;
+            height: 32px;
+        }
+
+        @media only screen and (max-width:1100px) {
+            .skillset_container {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .skillset_item {
+                align-items: center;
+            }
+        }
+
+        @media only screen and (max-width:1000px) {
+
+            .nav_item_container,
+            .logo_text,
+            .nav_links_container {
+                display: none;
+            }
+
+            .navbar_menu {
+                display: flex;
+            }
+
+            .portfolio_main_container {
+                gap: 50px;
+            }
+
+            /* ------------------Section-1----------------- */
+            .intro_container {
+                flex-direction: column-reverse;
+                width: 95%;
+                height: auto;
+                justify-content: center;
+                gap: 50px;
+            }
+
+            .heading_container {
+                width: 100%;
+                align-items: center;
+                text-align: center;
+                letter-spacing: 2px;
+            }
+
+            #profile_pic {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .h2 {
+                font-size: 30px;
+            }
+
+            .h3 {
+                font-size: 20px;
+            }
+
+            .h4 {
+                font-size: 15px;
+            }
+
+            .h5 {
+                font-size: 10px;
+            }
+
+            /* ---------------------------------- */
+            .decor_line {
+                height: 3px;
+            }
+
+            .para {
+                padding: 22px;
+            }
+
+            .section_template {
+                gap: 40px;
+            }
+        }
+
+        @media only screen and (max-width:1000px) {
+            .track_dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .track_line {
+                width: 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="navigation_bar">
+        <nav class="navbar">
+            <div class="logo nav_item_layout">
+                <img loading="lazy" src="/images/p_logo.svg" alt="error" style="width: 30px;">
+                <span class="logo_text text_highlighting_1 h5">PORTFOLIO</span>
+            </div>
+            <div class="nav_item_container nav_item_layout">
+                <span class="h5" data_id="home">Home</span>
+                <span class="h5" data_id="about">About</span>
+                <span class="h5" data_id="skills">Skills</span>
+                <span class="h5" data_id="experience">Experience</span>
+                <span class="h5" data_id="projects">Projects</span>
+                <span class="h5" data_id="contact">Contact</span>
+            </div>
+            <div class="nav_links_container nav_item_layout" style="padding-right: 30px;">
+                <img loading="lazy" title="Github" class="icon_size" src="/images/github.svg" alt="error">
+                <img loading="lazy" title="LinkedIn" class="icon_size" src="/images/Linkedin.svg" alt="error">
+                <img loading="lazy" title="Figma" class="icon_size" src="/images/Figma.svg" alt="error">
+            </div>
+        </nav>
+    </section>
+
+    <div class="portfolio_main_container">
+        <!--  Navbar space template -->
+        <div class="navbar"></div>
+        <!-- Home Section -->
+        <section class="intro_container" id="home" data-aos="fade-up" data-aos-offset="100" data-aos-easing="ease-in-sine"  data-aos-duration="1500">
+            <div class="heading_container h3" >
+                <span class="text_h1">Hi 👋,</span>
+                <span class="text_h1">My name is</span>
+                <span class="text_h2 h2">DIVYAM GARG</span>
+                <span class="text_h1">I'm a Software Engineer </span>
+                <span class="text_h1">& I build things for web</span>
+            </div>
+            <img loading="lazy" id="profile_pic" src="/images/profile_pic.svg" alt="error">
+        </section>
+
+        <!--  About Section  -->
+        <section class="section_template" id="about"  data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-in-sine"  data-aos-duration="1500">
+            <div class="sub_heading h3">
+                <span class="text_h1">About <span class="text_h2">Me</span></span>
+                <div class="decor_line"></div>
+            </div>
+            <span class="h4 para">I’m a passionate learner and aim to work as a Software Engineer where I can use my
+                logical
+                skills and prior knowledge so as to develop and build optimistic projects . I wish to work with a
+                diverse team that promotes the vision and objectives of the community while concurrently aiding my
+                personal growth.</span>
+        </section>
+
+        <!-- Technical Skills Section -->
+        <section class="section_template" id="skills">
+            <div class="sub_heading h3">
+                <span class="text_h1">Technical <span class="text_h2">Skills</span></span>
+                <div class="decor_line"></div>
+            </div>
+            <div class="technical_skills_container">
+                <div class="skill_icon">
+                    <img loading="lazy" src="/images/hmtl.svg" alt="error">
+                    <div class="skill_icon_text">
+                        <div class="skill_icon_line"></div>
+                        <span>HTML</span>
+                        <div class="skill_icon_line"></div>
+                    </div>
+                </div>
+                <div class="skill_icon">
+                    <img loading="lazy" src="/images/css.svg" alt="error">
+                    <div class="skill_icon_text">
+                        <div class="skill_icon_line"></div>
+                        <span>CSS</span>
+                        <div class="skill_icon_line"></div>
+                    </div>
+                </div>
+                <div class="skill_icon">
+                    <img loading="lazy" src="/images/js.svg" alt="error">
+                    <div class="skill_icon_text">
+                        <div class="skill_icon_line"></div>
+                        <span>JS</span>
+                        <div class="skill_icon_line"></div>
+                    </div>
+                </div>
+                <div class="skill_icon">
+                    <img loading="lazy" src="/images/skills 5.svg" alt="error">
+                    <div class="skill_icon_text">
+                        <div class="skill_icon_line"></div>
+                        <span>C++</span>
+                        <div class="skill_icon_line"></div>
+                    </div>
+                </div>
+                <div class="skill_icon">
+                    <img loading="lazy" src="/images/react.svg" alt="error">
+                    <div class="skill_icon_text">
+                        <div class="skill_icon_line"></div>
+                        <span>React</span>
+                        <div class="skill_icon_line"></div>
+                    </div>
+                </div>
+                <div class="skill_icon">
+                    <img loading="lazy" src="/images/Figma.svg" alt="error">
+                    <div class="skill_icon_text">
+                        <div class="skill_icon_line"></div>
+                        <span>Figma</span>
+                        <div class="skill_icon_line"></div>
+                    </div>
+                </div>
+
+                <div class="skill_icon">
+                    <img loading="lazy" src="/images/skills 2.svg" alt="error">
+                    <div class="skill_icon_text">
+                        <div class="skill_icon_line"></div>
+                        <span>Git</span>
+                        <div class="skill_icon_line"></div>
+                    </div>
+                </div>
+                <div class="skill_icon">
+                    <img loading="lazy" src="/images/skills 3.svg" alt="error">
+                    <div class="skill_icon_text">
+                        <div class="skill_icon_line"></div>
+                        <span>VS Code</span>
+                        <div class="skill_icon_line"></div>
+                    </div>
+                </div>
+                <div class="skill_icon">
+                    <img loading="lazy" src="/images/skills 4.svg" alt="error">
+                    <div class="skill_icon_text">
+                        <div class="skill_icon_line"></div>
+                        <span>Postman</span>
+                        <div class="skill_icon_line"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Skills Section -->
+        <section class="section_template">
+            <div class="sub_heading h3">
+                <span class="text_h1">Additional <span class="text_h2">Skills</span></span>
+                <div class="decor_line"></div>
+            </div>
+            <div class="skillset_container h4 para">
+                <div class="skillset_item">
+                    <span>Problem Solving</span>
+                    <span>Data Structures and Algorithms</span>
+                    <span>Object Oriented Programming</span>
+                    <span>Testing and Debugging</span>
+                </div>
+                <div class="skillset_item">
+                    <span>Performance Optimization</span>
+                    <span>Responsive Web Design</span>
+                    <span>Cross Browser Compatibility</span>
+                    <span>Browser Developer Tools</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Expeience -->
+        <section class="section_template" id="experience">
+            <div class="sub_heading h3">
+                <span class="text_h1">Work <span class="text_h2">Experience</span></span>
+                <div class="decor_line"></div>
+            </div>
+            <div class="journey_track_main_container h5">
+                <div class="track_dot_container"></div>
+                <div class="track_content_container h4">
+                    <div class="track_item">
+                        <span><b>Frontend Developer </b><span style="font-style: italic;">Dec 2022 - June
+                                2023</span></span>
+                        <a href="https://www.advantageclub.co/in" target="_blank">Advantage Club</a>
+                    </div>
+                    <div class="track_item">
+                        <span>Designed and developed dynamic and responsive websites using HTML, CSS, JavaScript, and
+                            JQuery</span>
+                    </div>
+                    <div class="track_item">
+                        <span>Worked with REST APIs to retrieve and display data from databases</span>
+                    </div>
+                    <div class="track_item">
+                        <span>Improved website performance and speed through optimization techniques</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personal Projects -->
+        <section class="section_template" id="projects">
+            <div class="sub_heading h3">
+                <span class="text_h1">Personal <span class="text_h2">Projects</span></span>
+                <div class="decor_line"></div>
+            </div>
+            <div class="cards_main_container">
+                <div class="card_container h5">
+                    <img loading="lazy" class="card_image" src="/images/card_image.svg" alt="error">
+                    <div class="card_text_container">
+                        <span><b>Project Tile goes here</b></span>
+                        <span style="text-align: justify;">This is sample project description random things are here in
+                            description This is sample project lorem ipsum generator for dummy content</span>
+                        <span><b>Tech stack </b> : HTML , JavaScript, SASS, React</span>
+                        <div class="card_link_container">
+                            <a class="card_link" href="#">
+                                <img loading="lazy" src="/images/akar-icons_link-chain.svg" alt="error">
+                                <span>Live Preview</span>
+                            </a>
+                            <a class="card_link" href="#">
+                                <img loading="lazy" src="/images/github.svg" alt="error">
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card_container h5">
+                    <img loading="lazy" class="card_image" src="/images/card_image.svg" alt="error">
+                    <div class="card_text_container">
+                        <span><b>Project Tile goes here</b></span>
+                        <span style="text-align: justify;">This is sample project description random things are here in
+                            description This is sample project lorem ipsum generator for dummy content</span>
+                        <span><b>Tech stack </b> : HTML , JavaScript, SASS, React</span>
+                        <div class="card_link_container">
+                            <a class="card_link" href="#">
+                                <img loading="lazy" src="/images/akar-icons_link-chain.svg" alt="error">
+                                <span>Live Preview</span>
+                            </a>
+                            <a class="card_link" href="#">
+                                <img loading="lazy" src="/images/github.svg" alt="error">
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <!-- Contact Me -->
+        <section class="section_template" id="contact">
+            <div class="sub_heading h3">
+                <span class="text_h1">Contact <span class="text_h2">Me</span></span>
+                <div class="decor_line"></div>
+            </div>
+            <div class="contact_container">
+                <span class="h4">For any kind of suggestions or queries</span>
+                <span class="h4">please feel free to mail me </span>
+            </div>
+            <a class="mail_btn" href="mailto:dvm.garg26@gmail.com">
+                <img loading="lazy" src="/images/mail.svg" alt="error">
+                <span class="h5">Send Mail</span>
+            </a>
+        </section>
+
+        <section id="footer">
+            <div class="footer_container">
+                <div class="line"></div>
+                <div class="footer_icon_container">
+                    <img loading="lazy" title="Github" class="icon_size" src="/images/github.svg" alt="error">
+                    <img loading="lazy" title="LinkedIn" class="icon_size" src="/images/Linkedin.svg" alt="error">
+                    <img loading="lazy" title="Figma" class="icon_size" src="/images/Figma.svg" alt="error">
+                </div>
+                <div class="line"></div>
+            </div>
+            <span class="h5" style="width: 100%;text-align: end;">Designed and built by <span
+                    class="text_highlighting_1">DIVYAM GARG</span> with <span class="text_highlighting_1">Love</span> &
+                <span class="text_highlighting_1">Coffee</span></span>
+        </section>
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+        let scroll_id = "";
+        function toggleMenu(curr_obj) {
+            $(curr_obj).toggleClass("change");
+            console.log($(curr_obj).attr("class"));
+            if ($(curr_obj).attr("class") === "navbar_menu") {
+                $(".nav_menu_item_overlay").slideUp('slow');
+            } else {
+                $(".nav_menu_item_overlay").slideDown('slow');
+            }
+        }
+
+        function scrollSection(scroll_id) {
+            // Calculate the offset of the #about div relative to the top of the page
+            let offsetTop = $(`#${scroll_id}`).offset().top - $(".navbar").height() - 10;
+            if (offsetTop > 0) {
+                // Animate scrolling to the #about div
+                $('html').scrollTop(offsetTop);
+            }
+        }
+
+        if (window.outerWidth <= 1000) {
+            $(".navigation_bar").html(` <nav class="navbar">
+        <div class="logo nav_item_layout">
+            <img loading="lazy" src="/images/p_logo.svg" alt="error" style="width: 30px;">
+            <span class="logo_text text_highlighting_1 h5">PORTFOLIO</span>
+        </div>
+        <div class="navbar_menu" onclick="toggleMenu(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </nav>
+    <div class="nav_menu_item_overlay">
+        <div class="nav_menu_item_container">
+            <span class="h5" data_id="home">Home</span>
+            <span class="h5" data_id="about">About</span>
+            <span class="h5" data_id="skills">Skills</span>
+            <span class="h5" data_id="experience">Experience</span>
+            <span class="h5" data_id="projects">Projects</span>
+            <span class="h5" data_id="contact">Contact</span>
+        </div>
+    </div>`);
+        }
+
+        function getJourneyTrack() {
+            let curr_obj, trackContentContainer, content_box_height, box_gap, dot_box_html, trackItems, content_box_length, box_ht;
+            $(".journey_track_main_container").each(function () {
+                curr_obj = $(this);
+                trackContentContainer = curr_obj.find(".track_content_container");
+                content_box_height = trackContentContainer.outerHeight();
+                box_gap = trackContentContainer.css("gap");
+                dot_box_html = "";
+                trackItems = trackContentContainer.find(".track_item");
+                content_box_length = trackItems.length;
+                box_ht;
+
+                trackItems.each(function (index) {
+                    box_ht = $(this).outerHeight();
+
+                    if (index === 0) { // For starting index
+                        dot_box_html += `<div class="track_box" style="height: ${box_ht}px;">
+                <div style="height: 50%;"></div>
+                <div class="track_dot"></div>
+                <div class="track_line" style="height: 50%;"></div>
+            </div>
+            <div class="track_box" style="height: ${box_gap}">
+                <div class="track_line" style="height: 100%;"></div>
+            </div>`;
+                    } else if (index === content_box_length - 1) { // For ending index
+                        dot_box_html += `<div class="track_box" style="height: ${box_ht}px;">
+                <div class="track_line" style="height: 50%;"></div>
+                <div class="track_dot"></div>
+                <div style="height: 50%;"></div>
+            </div>`;
+                    } else { // For gap as well as middle index
+                        dot_box_html += `<div class="track_box" style="height: ${box_ht}px;">
+                <div class="track_line" style="height: 50%;"></div>
+                <div class="track_dot"></div>
+                <div class="track_line" style="height: 50%;"></div>
+            </div>
+            <div class="track_box" style="height: ${box_gap}">
+                <div class="track_line" style="height: 100%;"></div>
+            </div>`;
+                    }
+                });
+
+                curr_obj.find(".track_dot_container").css('height', content_box_height).html(dot_box_html);
+            });
+        }
+
+        $(document).ready(function () {
+            AOS.init();
+            $("html").scrollTop(0);
+            //  For experience track
+            getJourneyTrack();
+
+            $(".nav_menu_item_overlay .nav_menu_item_container span,.nav_item_container span").click(function () {
+                scroll_id = $(this).attr("data_id");
+                toggleMenu($(".navbar_menu")[0]);
+                scrollSection(scroll_id);
+            })
+
+
+
+        })
+    </script>
+</body>
+
+</html>

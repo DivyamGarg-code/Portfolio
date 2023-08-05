@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: white;
+            height: 100vh;
+            display: flex;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            position: relative;
+            width: 500px;
+            /* height: 500px; */
+            /* border: 2px solid black; */
+            justify-content: center;
+        }
+
+        .item {
+            position: relative;
+            margin: 50px;
+            
+            height: 100px;
+            width: 100px;
+            border: 2px solid black;
+        }
+.item:nth-child(1){
+    margin-top: 10px;
+}
+.item:nth-child(n){
+    margin-bottom: 0;
+}
+        .box::before {
+            content: "";
+            width: 2px;
+            height: 100%;
+            background-color: black;
+            position: absolute;
+            /* left: 20%; */
+            /* top: 10%; */
+        }
+
+        .circle {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: black;
+            position: absolute;
+            left: -59px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="item">
+            <div class="circle"></div>
+        </div>
+        <div class="item">
+            <div class="circle"></div>
+        </div>
+        <div class="item">
+            <div class="circle"></div>
+        </div>
+    </div>
+</body>
+</html>
