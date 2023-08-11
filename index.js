@@ -89,12 +89,14 @@ function getJourneyTrack() {
     });
 }
 
+function fun(){
+    $("html").scrollTop(0);
+}
+
 $(document).ready(function () {
     AOS.init();
-    $("html").scrollTop(0);
     //  For experience track
     getJourneyTrack();
-
     $(".nav_menu_item_overlay .nav_menu_item_container span,.nav_item_container span").click(function () {
         scroll_id = $(this).attr("data_id");
         toggleMenu($(".navbar_menu")[0]);
