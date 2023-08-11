@@ -101,6 +101,8 @@ $(document).ready(function () {
         scrollSection(scroll_id);
     })
 
-
+    $(".logo.nav_item_layout").click(function(){
+        window.location.href="/";
+    })
 
 })
