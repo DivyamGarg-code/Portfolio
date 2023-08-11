@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            overflow-y: hidden;
+            position: fixed !important;
+        }
+
+        .survey_wrapper {
+            position: relative;
+            /*max-width: 1000px;*/
+            width: 100vw;
+            /* height: 1000px; */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 25px;
+            padding: 15px;
+        }
+
+        .survey_heading {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            text-align: center;
+            color: #000000;
+            width: 200px;
+            border-bottom: 3px solid #007F87;
+            margin-top: 50px;
+            padding-bottom: 10px;
+        }
+
+        .survey_sub_heading {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 32px;
+            text-align: center;
+            color: #000000;
+        }
+
+        .survey_main_container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 90px;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .survey_container {
+            max-width: 295px;
+            width: 100%;
+            height: 384px;
+            background: #FFFFFF;
+            border: 1px solid #848484;
+            box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.25);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 30px;
+            cursor: pointer;
+        }
+
+        .text_highlighting {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            color: #007F87;
+            text-align: center;
+        }
+
+        .text_highlighting2 {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 13px;
+            text-align: center;
+            color: #505050;
+        }
+
+        /* ------------Survey Btns--------------- */
+        .survey_btn1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 20px;
+            background: black;
+            border-radius: 8px;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            text-align: center;
+            color: #FFFFFF;
+            height: fit-content;
+            width: fit-content;
+            cursor: pointer;
+        }
+
+        .survey_btn2 {
+            padding: 8px 20px;
+            background: #FFFFFF;
+            border: 1px solid black;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            color: black;
+            cursor: pointer;
+            height: fit-content;
+            width: fit-content;
+        }
+
+        #survey_title {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 30px;
+            text-align: start;
+            color: #000000;
+            width: 100%;
+        }
+
+        .survey_btn_right_container {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        .survey_btn_bottom_container {
+            width: 100%;
+            height: 40px;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 0.1px solid #dadce0;
+            background: #F7F8FA;
+            padding: 0px 16px;
+            opacity: 0;
+        }
+
+        /* ----------------------Questions Main Container -------------------------- */
+        .questions_main_container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 30px;
+            width: 100%;
+            overflow-y: auto;
+            /*max-height: 510px;*/
+            height: 100%;
+            padding: 10px 0px;
+        }
+
+        /* ----------- Question Wrapper Css ------------------------------------ */
+        .hide {
+            display: none !important;
+        }
+
+        .question_wrapper {
+            max-width: 1400px;
+            width: 100%;
+            height: auto;
+            background: #FFFFFF;
+            border: 1px solid #848484;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 18px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .question_main_container {
+            /* max-width: 1081px; */
+            width: 100%;
+            height: 62px;
+            /* background: #F6F6F6; */
+            border-bottom: 1px solid #848484;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 18px;
+            padding: 0px 10px;
+
+        }
+
+        .question_container {
+            position: relative;
+            /*max-width: 994px;*/
+            width: 100%;
+            height: 38px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border: 0.75px solid #848484;
+            background: #FAFAFA;
+            border-radius: 8px;
+        }
+
+        .question_input_box {
+            width: 100%;
+            height: 100%;
+            border: transparent;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            color: #505050;
+            padding: 8px;
+            background: #FAFAFA;
+            border-radius: 8px;
+        }
+
+        .question_input_box:focus,
+        .question_input_box:active {
+            border: transparent !important;
+            /* border-bottom: 2px solid blue !important; */
+            outline: none !important;
+            /* This removes the default outline when the input is active */
+        }
+
+        .question_dropdown {
+            max-width: 269px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 0.75px solid #848484;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            color: #505050;
+            padding: 0px 12px;
+            cursor: pointer;
+        }
+
+        /* ----------------- Dragging Icon ----------*/
+        .dragging_icon {
+            height: 12px;
+            width: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+            cursor: move;
+        }
+
+        .dragging_icon div {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 1px;
+            width: 100%;
+        }
+
+        .dragging_icon div div {
+            background-color: #999;
+            height: 3px;
+            width: 3px;
+            border-radius: 50%;
+        }
+
+        .dragging_icon:hover div div {
+            background-color: black;
+        }
+
+        /* ---------------------------------------- */
+
+        /* ------------------------ Question Type Options dropdown------------ */
+        .field_type_main_container {
+            position: absolute;
+            top: 38px;
+            right: 0;
+            z-index: 1;
+            width: 450px;
+            height: 190px;
+            background: #FDFDFD;
+            box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .field_type_container {
+            width: 180px;
+            height: 150px;
+            /* border: 1px solid black; */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .field_type_option {
+            width: 100%;
+            height: 25px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .field_type_option:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        @media only screen and (max-width:600px) {
+            .field_type_main_container {
+                height: auto;
+                width: auto;
+                flex-direction: column;
+                padding: 10px;
+            }
+        }
+
+        /* ---------------------------------------------------------- */
+        .question_description {
+            width: 100%;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            color: #505050;
+            border: transparent;
+            background-color: transparent !important;
+        }
+
+        .question_description:focus,
+        .question_description:active {
+            border-bottom: 1px solid #848484 !important;
+            outline: none !important;
+            /* This removes the default outline when the input is active */
+        }
+
+        /* ------------- Options Container---------------- */
+        .options_main_container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 13px;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        /* --------Option : Multiple Choice,Checkbox,Dropdown------------------- */
+        .option_container {
+            width: 100%;
+            height: 32px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .option_input_box {
+            width: 100%;
+            height: 100%;
+            border: transparent;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            color: #505050;
+            padding: 8px;
+            border: 0.75px solid #848484 !important;
+            background: #FAFAFA;
+            border-radius: 8px;
+        }
+
+        .option_input_box:focus,
+        .option_input_box:active {
+            border-bottom: 0.75px solid #848484;
+            /* border-bottom: 2px solid blue !important; */
+            outline: none !important;
+            /* This removes the default outline when the input is active */
+        }
+
+        .option_container .active_option {
+            cursor: pointer;
+        }
+
+        .option_container .active_option:hover path {
+            fill: black;
+        }
+
+        .disabled_option {
+            cursor: not-allowed;
+        }
+
+        /* -------------Option : Text Field,Comment,Star Rating,Rating Scale ---------------- */
+
+        .option_text_container {
+            position: relative;
+            width: 100%;
+            height: 80px;
+            background: #FAFAFA;
+            border: 0.75px solid #848484;
+            cursor: not-allowed;
+            border-radius: 8px;
+        }
+
+        /* -----------Text Length------------------- */
+        .text_length_container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .text_length_container div,
+        .rating_length_container div {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .text_length_container div input,
+        .rating_length_container div input {
+            max-width: 100px;
+            width: 100%;
+            height: 100%;
+            border: transparent;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            color: #505050;
+            padding: 8px;
+            border: 0.75px solid #848484;
+            background: #FAFAFA;
+            border-radius: 8px;
+        }
+
+        .text_length_container div input:focus,
+        .text_length_container div input:active,
+        .rating_length_container div input:focus,
+        .rating_length_container div input:active {
+            border: 0.75px solid #848484;
+            /* border-bottom: 2px solid blue !important; */
+            outline: none !important;
+            /* This removes the default outline when the input is active */
+        }
+
+        /* -------------------------------------------------------------- */
+
+        /* ----------------------- Date Time Container------------------------------ */
+        .date_time_container {
+            margin: auto;
+            display: flex;
+            width: 100%;
+            height: 42px;
+            background: #FAFAFA;
+            border: 0.75px solid #848484;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            cursor: not-allowed;
+        }
+
+        /* -------------------------------------------------------------- */
+
+        /* --------------- Question Additional Fields----------------------------- */
+        .question_additional_fields {
+            /* max-width: 400px; */
+            height: 40px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+            padding: 10px 0px;
+            border-top: 0.1px solid #dadce0;
+        }
+
+        .additional_field_seperator {
+            border: 0.1px solid #dadce0;
+            width: 0;
+            height: 30px;
+        }
+
+        .question_additional_fields img {
+            cursor: pointer;
+        }
+
+        .custom-switch {
+            display: inline-flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        .switch_btn {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background-color: #d4d4d4;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .unchecked_btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 100%;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .checked_btn {
+            right: 0;
+            left: auto;
+        }
+
+        .checked_btn_bg {
+            background-color: red;
+        }
+
+        /* --------------------------------------------------------------------------- */
+
+        /* ================================= Preview Section CSS ================================ */
+        .main_wrapper_preview {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .preview_question_main_container {
+            max-width: 1000px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px 0px;
+        }
+
+        .preview_question_wrapper {
+            width: 100%;
+            height: auto;
+            border: 1px solid #E8E9EA;
+            box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            gap: 20px;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .preview_question {
+            max-width: 922px;
+            width: 100%;
+            text-align: start;
+            height: auto;
+            font-size: 20px;
+            color: #505050;
+        }
+
+        .preview_question_description {
+            max-width: 900px;
+            width: 100%;
+            text-align: start;
+            height: auto;
+            font-size: 16px;
+            color: #000000a1;
+        }
+
+        .preview_options_main_container {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 16px;
+        }
+
+        .preview_option_container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #E8E9EA;
+            border-radius: 24px;
+            cursor: not-allowed;
+            color: #505050;
+        }
+
+        /* ---------------- Dropdown ------------------- */
+        .preview_dropdown {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E8E9EA;
+            border-radius: 24px;
+            cursor: pointer;
+        }
+
+        .preview_option_container select {
+            padding: 15px;
+            /* Adjust the padding value as needed */
+            background-position: right 10px center;
+            /* Adjust the position of the arrow as needed */
+            background-repeat: no-repeat;
+            background-image: url('https://cdn0.workadvantage.in/images/cdn_upload/cdn/2420/f978a3a71a.svg');
+            /* Replace with your arrow image */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            cursor: not-allowed;
+        }
+
+        /* ----------------- TextBox ----------------------- */
+        .preview_textbox {
+            border-radius: 8px;
+            padding: 12px;
+            border: none;
+            height: 200px;
+            width: 100%;
+            border: 2px solid #E8E9EA;
+            resize: none;
+            background: none;
+            cursor: not-allowed;
+        }
+
+
+        .char_limit {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        /* ----------------------------------------------------- */
+
+        /* ------------Slider------------------------ */
+        .slidecontainer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: grey;
+            cursor: not-allowed;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: grey;
+            cursor: not-allowed;
+        }
+
+        .slider_range {
+            color: grey;
+        }
+
+        /* -------------------------------------------- */
+
+        /* ------ Star Rating -------------- */
+        .rating {
+            position: relative;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 4px;
+        }
+
+        .rating input {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: not-allowed;
+        }
+
+        .rating input::before {
+            content: '\f005';
+            position: absolute;
+            font-family: fontAwesome;
+            font-size: 34px;
+            color: #D9D9D9;
+            ;
+            transition: 0.5s;
+        }
+
+        /* ------------------------------------------------ */
+
+        /* --------------- Date and Time ----------------- */
+        .date_container {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            border: 2px solid #E8E9EA;
+            border-radius: 24px;
+            cursor: not-allowed;
+        }
+
+        /* ------------------------------------------------ */
+
+        /* ----------------- Rating Scale ----------------------- */
+        .rating_scale {
+            width: 100%;
+            border: 1px solid #E8E9EA;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row-reverse;
+            width: fit-content;
+            background-color: #D9D9D9;
+            ;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+
+        }
+
+        .rating_scale input {
+            display: none
+        }
+
+        .rating_scale label {
+            display: flex;
+            width: 50px;
+            height: 50px;
+            justify-content: center;
+            align-items: center;
+            background: #D9D9D9;
+            color: grey;
+            cursor: not-allowed;
+        }
+
+        .rating_scale label {
+            border: 1px solid #E8E9EA;
+        }
+
+        /*=============================================================================== */
+
+        .disabled_btn1 {
+            background: rgba(0, 0, 0, 0.56);
+            cursor: not-allowed;
+        }
+
+        .disabled_btn2 {
+            color: rgba(0, 0, 0, 0.56);
+            border: 1px solid rgba(0, 0, 0, 0.56);
+            cursor: not-allowed;
+        }
+    </style>
+
+    <style>
+        /* ============================== Settings======================================= */
+        .settings_container_heading {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .settings_title {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .settings_line_breaker {
+            border: 1px solid #d7e7f6;
+            width: 100%;
+        }
+
+        .survey_pop_up_overlay_wrapper {
+            top: 0px;
+            z-index: 1000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.27);
+            overflow-y: auto !important;
+        }
+
+        .survey_creation_pop_up_main_container {
+            max-height: 80vh;
+            max-width: 900px;
+            width: 90vw;
+            background: #FFFFFF;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            /* overflow-y: auto; */
+        }
+
+        .survey_creation_pop_up_main_container input[type="text"],
+        .survey_creation_pop_up_main_container select {
+            border: 1px solid black !important;
+        }
+
+        .survey_creation_pop_up_container {
+            max-height: 402px;
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .survey_pop_up_header {
+            height: 56px;
+            width: 100%;
+            background: rgba(0, 0, 0, 42%);
+            border-radius: 8px 8px 0px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            color: #212B36;
+
+        }
+
+        #survey_pop_up_cross {
+            cursor: pointer;
+        }
+
+        /* ------------------------------------------------------------------------ */
+
+        /* -------------------- Pop Up Footer ------------------------ */
+        .survey_pop_up_footer {
+            height: 56px;
+            width: 100%;
+            background: #F4F6F8;
+            border-radius: 0px 0px 8px 8px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 15px;
+            padding: 10px 0px;
+            padding-right: 24px;
+        }
+
+        .survey_btn {
+            background: black;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            text-align: center;
+            color: #FFFFFF;
+            cursor: pointer;
+            padding: 7px 16px;
+        }
+
+        /* ---------------------------------------------------- */
+
+        /* ------------ Settings Main CSS----------------- */
+        .settings_main_container {
+            /* border: 1px solid black; */
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            margin: 10px 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            font-family: 'Outfit';
+            font-style: normal;
+            padding: 10px;
+        }
+
+        .settings_container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 840px;
+            gap: 20px;
+        }
+
+        .hide {
+            display: none !important;
+        }
+
+        /* ----------------- Search Box --------------- */
+        .search_box_container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .search_input {
+            height: 50px;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .search_input:active,
+        .search_input:focus {
+            border: 2px solid black;
+        }
+
+
+        .search_box_container .search_dropdown {
+            width: 100%;
+            border-right: 1px solid black;
+            border-left: 1px solid black;
+            border: 1px solid #DBE7F0;
+            box-shadow: 0px 1px 24px rgba(0, 0, 0, 0.08);
+            list-style: none;
+        }
+
+        .search_box_container .search_dropdown li {
+            border-bottom: 1px solid #DBE7F0;
+        }
+
+        .search_box_container .search_dropdown li:hover {
+            background-color: #c5c5c582;
+            cursor: pointer;
+        }
+
+        .search_info {
+            display: flex;
+            flex-direction: column;
+            font-size: 16px;
+            gap: 5px;
+            flex-wrap: wrap;
+            word-wrap: break-word;
+            padding: 10px;
+        }
+
+        .search_info_active_state {
+            background-color: #c5c5c5;
+        }
+
+        /* --------------- Search Selected List ------------- */
+        .search_selected_items_container {
+            margin-top: 10px;
+            width: 100%;
+            max-height: 400px;
+            overflow-y: auto;
+            gap: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .search_selected_item {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            background: #808080ad;
+            ;
+            width: fit-content;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .search_cross {
+            width: 15px;
+            cursor: pointer;
+        }
+
+        .error_msg {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        /* -------------------------------------------------------------------------- */
+
+        /* ----------- Select Dropdown ------------------- */
+        .select_dropdown_container {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .settings_dropdown {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 10px;
+            min-width: 150px;
+        }
+
+        .settings_main_container label,
+        .settings_checkbox span {
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .settings_checkbox span {
+            font-size: 18px;
+            font-weight: 300;
+        }
+
+        .settings_dropdown select {
+            width: 100%;
+            font-size: 16px;
+            padding: 2px;
+        }
+
+        /* -------------------------------------------------------------------------     */
+
+        /* ---------------- Custom Switch Toggle ------------------------ */
+
+        .settings_checkbox {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .switch_btn {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background-color: #d4d4d4;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .unchecked_btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 100%;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .checked_btn {
+            right: 0;
+            left: auto;
+        }
+
+        .checked_btn_bg {
+            background-color: #14273B;
+        }
+
+        /* ---------------------------------------------------- */
+        @media only screen and (max-width:1000px) {
+
+            .survey_btn_bottom_container a,
+            #save {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="main_frame_wrapper">
+        <div class="outer_frame"></div>
+    </div> -->
+    <div class="survey_wrapper">
+        <div id="survey_title"></div>
+        <div class="questions_main_container"></div>
+        <div class="main_wrapper_preview hide" title="preview">
+            <div class="preview_question_main_container"></div>
+        </div>
+        <div class="survey_btn_bottom_container">
+            <div class="survey_btn1" id="add_question">Add Question</div>
+            <div class="survey_btn_right_container">
+                <div class="survey_btn2" id="cancel" onclick="cancelEventHandler()">Cancel</div>
+                <div class="survey_btn2" id="preview_btn" onclick="getUserSidePreview()">Preview</div>
+                <div class="survey_btn1" id="save" onclick="saveSurveyCreation(this)">Save</div>
+                <!-- <div class="survey_btn1" id="settings" onclick="openSettingsPopUp()">Settings</div> -->
+                <a class="survey_btn1" href="/pages/2.survey_user_side_view.html" style="text-decoration: none;">Survey
+                    Userside View</a>
+                <a class="survey_btn1" href="/pages/3.quiz_user_side_view.html" style="text-decoration: none;">Quiz
+                    Userside View</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+        const surveyFormName = "Questionnaire Creation";
+        const surveyFormId = 10;
+        console.log("Survey Name: ", surveyFormName);
+        console.log("Survey Form ID: ", surveyFormId);
+        $("#survey_title").text(surveyFormName);
+    </script>
+
+    <script>
+        let active_state = "Survey_Creation";
+        //==================================== Preview Section ============================================
+        let isRequired_template = `<span style="color: red;" title="Required"> *</span>`;
+
+        // Preview options Template ------------------
+        function preview_options_template(ques_type, option_attributes, min_length, max_length, rating_length) {
+            let option_template = ''
+            console.log("--> ", ques_type, option_attributes, min_length, max_length, rating_length)
+            if (ques_type == 1) {
+                option_attributes.forEach(element => {
+                    let option_value = element.statement;
+                    option_template += `<label class="preview_option_container">
+                    <input type="radio" value="${option_value}" disabled>
+                    <div class="preview_option">${option_value}</div>
+                </label>`;
+                });
+
+            } else if (ques_type == 2) {
+                option_attributes.forEach(element => {
+                    let option_value = element.statement;
+                    option_template += `<label class="preview_option_container">
+                    <input type="checkbox" value="${option_value}" disabled>
+                    <div class="preview_option">${option_value}</div>
+                </label>`;
+                });
+
+            } else if (ques_type == 3) {
+                option_template = `<label class="preview_option_container">
+                <select class="preview_dropdown" disabled>
+                    <option value="null" id=''>Select</option>
+                </select>
+            </label>`
+
+            } else if (ques_type == 7 || ques_type == 9) {
+                option_template = ` <textarea class="preview_textbox" disabled></textarea>
+                <div class="char_limit">
+                    <span class="min_char_limit" >Min Character Limit : ${min_length} </span>
+                    <span class="max_char_limit" >Max Character Limit : ${max_length}</span>
+                </div>`;
+
+            } else if (ques_type == 8) {
+                option_template = `<div class="slidecontainer">
+                    <input type="range" min=${min_length} max=${max_length} value=${min_length} class="slider" disabled>
+                    <span>Value : <span class="slider_range" >${min_length}</span></span>
+                </div>`;
+
+            } else if (ques_type == 5) {
+                for (let i = rating_length; i > 0; i--) {
+                    // Code to be executed in each iteration
+                    option_template += `<input type="radio" name="star_rating" style="--c: #ff9933" value=${i} />`;
+                }
+                option_template = `<div class="rating" id='star_rate'>${option_template}</div>`;
+
+            } else if (ques_type == 4) {
+                for (let i = rating_length; i > 0; i--) {
+                    // Code to be executed in each iteration
+                    option_template += `<input type="radio" name="rating_scale" id="rata${i}" value=${i} disabled ><label for="rata${i}">${i}</label>`;
+                }
+                option_template = `<div class="rating_scale" >${option_template}</div>`;
+
+            } else if (ques_type == 11) {
+                option_template = `<input type="date" class="date_container" disabled>`;
+            }
+
+            return option_template;
+        }
+
+        // Get the User Side Preview--------------------
+        function getUserSidePreview() {
+            if (active_state == "Survey_Creation") {
+                active_state = "Preview_Section";
+                $("#preview_btn").addClass("disabled_btn2");
+                $("#add_question,#save").addClass("disabled_btn1");
+                // Populate the preview section based upon the saved response
+                let preview_survey_response = ``;
+                main_response.survey_question.forEach((element, index) => {
+                    let ques = element.statement;
+                    let ques_type = element.ques_type;
+                    let desc = element.description;
+                    let is_mandatory = element.is_mandatory;
+                    let required_html = is_mandatory ? isRequired_template : '';
+                    let option_attributes = element.survey_options_attributes;
+                    let min_length = element.min_length == null ? 0 : element.min_length;
+                    let max_length = element.max_length == null ? 1000 : element.max_length;
+                    let rating_length = (element.rating_length == null || element.rating_length > 10) ? 10 : element.rating_length;
+                    // console.log(index,ques_id,ques_type,ques,desc,is_mandatory,option_attributes,min_length,max_length,rating_length);
+                    let option_template = preview_options_template(ques_type, option_attributes, min_length, max_length, rating_length);;
+                    preview_survey_response += `<div class="preview_question_wrapper">
+        <div class="preview_question"><span class="question_index">${index + 1}. </span>${ques}${required_html}</div>
+        <div class="preview_question_description">${desc}</div>
+        <div class="preview_options_main_container" type=${ques_type}>
+            ${option_template}
+        </div>
+    </div>`;
+                });
+
+                $('.preview_question_main_container').html(preview_survey_response);
+
+                // ----------------------------------------------------------------
+                // Hide the main questions
+                $(".questions_main_container").addClass('hide');
+                // Show the preview
+                $(".main_wrapper_preview").removeClass('hide');
+
+            }
+        }
+
+        function cancelEventHandler() {
+            if (active_state == "Survey_Creation") {
+                // Take it to the front page of survey module
+                console.log("No action performed");
+            } else if (active_state == "Preview_Section") { // Going back from Preview to survey creation part
+                preview_survey_response = ``;
+                $("#preview_btn").removeClass("disabled_btn2");
+                $("#add_question,#save").removeClass("disabled_btn1");
+                // Show the main questions
+                $(".questions_main_container").removeClass('hide');
+                // Hide the preview
+                $(".main_wrapper_preview").addClass('hide');
+                $('.preview_question_main_container').html(``);
+                active_state = "Survey_Creation";
+            }
+        }
+        // ================================================================================================
+
+        //=================================== Storing Response =========================================
+        let main_response = {
+            "survey_form":
+            {
+                "name": surveyFormName,
+            },
+            "survey_question": []
+        }
+
+        let response_template = {
+            "statement": "",
+            "description": "",
+            "ques_type": 0,
+            "is_mandatory": false,
+            "min_length": null,
+            "max_length": null,
+            "rating_length": null,
+            "options_attributes": []
+        }
+
+        // Here save the created questions information in the main response object
+        function updateInfo() {
+            if (active_state != "Survey_Creation") {
+                return;
+            }
+            let survey_questions = [];
+            let question_info = $(".question_wrapper");
+            let response, ques_heading, ques_description, ques_type, options_attributes, is_mandatory, min_length, max_length, rating_length;
+            question_info.each(function () {
+                response = response_template;
+                ques_heading = $(this).find(".question_input_box").val();
+                ques_description = $(this).find(".question_description").val();
+                ques_type = parseInt($(this).find(".selected_type").attr('id'));
+                options_attributes = [];
+                min_length = null;
+                max_length = null;
+                rating_length = null;
+                console.log("ques Heading: " + ques_heading);
+                console.log("ques Description: " + ques_description);
+                console.log("ques type: " + ques_type);
+                is_mandatory = $(this).find(".unchecked_btn.checked_btn").length > 0 ? true : false;
+                console.log("is mandatory: " + is_mandatory);
+
+                if (ques_type == 1 || ques_type == 2 || ques_type == 3) { // either checkbox,dropdown,multiple choice
+                    options_attributes = $(this).find(".option_input_box").map(function () {
+                        return { "statement": $(this).val() };
+                    }).get();
+                    console.log(options_attributes);
+                } else if (ques_type == 7 || ques_type == 8 || ques_type == 9) { // textbox,commentbox,slider
+                    min_length = parseInt($(this).find(".text_length.min_length").val());
+                    max_length = parseInt($(this).find(".text_length.max_length").val());
+                } else if (ques_type == 4 || ques_type == 5) { // star_rating,rating scale
+                    rating_length = parseInt($(this).find(".rating_length").val());
+                }
+                console.log("-------------------------------");
+                survey_questions.push({
+                    "statement": ques_heading,
+                    "description": ques_description,
+                    "ques_type": ques_type,
+                    "is_mandatory": is_mandatory,
+                    "min_length": min_length,
+                    "max_length": max_length,
+                    "rating_length": rating_length,
+                    "survey_options_attributes": options_attributes
+                })
+            });
+            main_response.survey_question = survey_questions;
+            console.log(main_response);
+        }
+
+        function saveSurveyCreation(curr_obj) {
+            if (active_state == "Survey_Creation") {
+                let curr_state = $(curr_obj).attr("id");
+                // Call the API to save the survey
+                console.log(main_response);
+                alert("Response saved Successfully");
+            }
+
+        }
+        // ==============================================================================================
+
+        const questions_main_container = $(".questions_main_container");
+        let question_wrapper = `<div class="question_wrapper" draggable="true">
+                    <div class="question_main_container">
+                        <div class="question_index">Q1</div>
+                        <div class="question_container">
+                            <input type="text" placeholder="Enter your Question" autocomplete="off"
+                                class="question_input_box">
+                            <div class="question_dropdown">
+                                <span class="selected_type" id="0">Select Type</span>
+                                <svg class="ques_dropdown_img" width="12" height="8" viewBox="0 0 12 8" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.42 0.590088L6 5.17009L10.59 0.590088L12 2.00009L6 8.00009L0 2.00009L1.42 0.590088Z"
+                                        fill="#848484" />
+                                </svg>
+                            </div>
+                            <div class="field_type_main_container hide">
+                                <div class="field_type_container">
+                                    <div class="field_type_option" field_type="multiple choice" field_type_id="1">
+                                        <svg width="14" height="12" viewBox="0 0 14 12" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M14 11.25V9.75H3.88889V11.25H14ZM14 6.75V5.25H3.88889V6.75H14ZM3.88889 2.25H14V0.75H3.88889V2.25ZM0.777778 0.75V2.25H2.33333V0.75H0.777778ZM0 0.75C0 0.551088 0.0819442 0.360322 0.227806 0.21967C0.373667 0.0790178 0.571498 0 0.777778 0H2.33333C2.53961 0 2.73744 0.0790178 2.88331 0.21967C3.02917 0.360322 3.11111 0.551088 3.11111 0.75V2.25C3.11111 2.44891 3.02917 2.63968 2.88331 2.78033C2.73744 2.92098 2.53961 3 2.33333 3H0.777778C0.571498 3 0.373667 2.92098 0.227806 2.78033C0.0819442 2.63968 0 2.44891 0 2.25V0.75ZM0.777778 5.25V6.75H2.33333V5.25H0.777778ZM0 5.25C0 5.05109 0.0819442 4.86032 0.227806 4.71967C0.373667 4.57902 0.571498 4.5 0.777778 4.5H2.33333C2.53961 4.5 2.73744 4.57902 2.88331 4.71967C3.02917 4.86032 3.11111 5.05109 3.11111 5.25V6.75C3.11111 6.94891 3.02917 7.13968 2.88331 7.28033C2.73744 7.42098 2.53961 7.5 2.33333 7.5H0.777778C0.571498 7.5 0.373667 7.42098 0.227806 7.28033C0.0819442 7.13968 0 6.94891 0 6.75V5.25ZM0.777778 9.75V11.25H2.33333V9.75H0.777778ZM0 9.75C0 9.55109 0.0819442 9.36032 0.227806 9.21967C0.373667 9.07902 0.571498 9 0.777778 9H2.33333C2.53961 9 2.73744 9.07902 2.88331 9.21967C3.02917 9.36032 3.11111 9.55109 3.11111 9.75V11.25C3.11111 11.4489 3.02917 11.6397 2.88331 11.7803C2.73744 11.921 2.53961 12 2.33333 12H0.777778C0.571498 12 0.373667 11.921 0.227806 11.7803C0.0819442 11.6397 0 11.4489 0 11.25V9.75Z"
+                                                fill="#848484" />
+                                        </svg>
+                                        <span class="field_type_name">Multiple Choice</span>
+                                    </div>
+                                    <div class="field_type_option" field_type="checkbox" field_type_id="2">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10.6667 10.6667H1.33333V1.33333H8V0H1.33333C0.593333 0 0 0.593333 0 1.33333V10.6667C0 11.0203 0.140476 11.3594 0.390524 11.6095C0.640573 11.8595 0.979711 12 1.33333 12H10.6667C11.0203 12 11.3594 11.8595 11.6095 11.6095C11.8595 11.3594 12 11.0203 12 10.6667V5.33333H10.6667M3.27333 4.72L2.33333 5.66667L5.33333 8.66667L12 2L11.06 1.05333L5.33333 6.78L3.27333 4.72Z"
+                                                fill="#848484" />
+                                        </svg>
+                                        <span class="field_type_name">Checkbox</span>
+                                    </div>
+                                    <div class="field_type_option" field_type="star rating" field_type_id="5">
+                                        <svg width="15" height="14" viewBox="0 0 15 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M7.5 9.86632L4.68 11.5389L5.4225 8.38526L2.9325 6.26316L6.2175 5.99053L7.5 3.01368L8.7825 5.99053L12.0675 6.26316L9.5775 8.38526L10.32 11.5389M15 5.33474L9.6075 4.88526L7.5 0L5.3925 4.88526L0 5.33474L4.0875 8.82L2.865 14L7.5 11.2516L12.135 14L10.905 8.82L15 5.33474Z"
+                                                fill="#848484" />
+                                        </svg>
+                                        <span class="field_type_name">Star Ratings</span>
+                                    </div>
+                                    <div class="field_type_option" field_type="textbox" field_type_id="7">
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10.5 3.5H14V10.5H10.5V11.9C10.5 12.0857 10.5737 12.2637 10.705 12.395C10.8363 12.5263 11.0143 12.6 11.2 12.6H12.6V14H10.85C10.465 14 9.8 13.685 9.8 13.3C9.8 13.685 9.135 14 8.75 14H7V12.6H8.4C8.58565 12.6 8.7637 12.5263 8.89497 12.395C9.02625 12.2637 9.1 12.0857 9.1 11.9V2.1C9.1 1.91435 9.02625 1.7363 8.89497 1.60503C8.7637 1.47375 8.58565 1.4 8.4 1.4H7V0H8.75C9.135 0 9.8 0.315 9.8 0.7C9.8 0.315 10.465 0 10.85 0H12.6V1.4H11.2C11.0143 1.4 10.8363 1.47375 10.705 1.60503C10.5737 1.7363 10.5 1.91435 10.5 2.1V3.5ZM0 3.5H7.7V4.9H1.4V9.1H7.7V10.5H0V3.5ZM12.6 9.1V4.9H10.5V9.1H12.6Z"
+                                                fill="#848484" />
+                                        </svg>
+                                        <span class="field_type_name">Textbox</span>
+                                    </div>
+                                </div>
+                                <div class="field_type_container">
+                                    <div class="field_type_option" field_type="dropdown" field_type_id="3">
+                                        <svg width="20" height="18" viewBox="0 0 20 18" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M14.5455 2.7H17.2727L15.9091 4.5L14.5455 2.7ZM1.81818 0H18.1818C19.1909 0 20 0.81 20 1.8V5.4C20 6.399 19.1909 7.2 18.1818 7.2H13.6364V16.2C13.6364 17.199 12.8273 18 11.8182 18H1.81818C0.818182 18 0 17.199 0 16.2V1.8C0 0.81 0.818182 0 1.81818 0ZM1.81818 1.8V5.4H11.8182V1.8H1.81818ZM18.1818 5.4V1.8H13.6364V5.4H18.1818ZM1.81818 16.2H11.8182V7.2H1.81818V16.2ZM3.63636 9H10V10.8H3.63636V9ZM3.63636 12.6H10V14.4H3.63636V12.6Z"
+                                                fill="#848484" />
+                                        </svg>
+                                        <span class="field_type_name">Dropdown</span>
+                                    </div>
+                                    <div class="field_type_option" field_type="rating scale" field_type_id="4">
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.4444 6.22222H7.77778V1.55556H12.4444M12.4444 12.4444H7.77778V7.77778H12.4444M6.22222 6.22222H1.55556V1.55556H6.22222M6.22222 12.4444H1.55556V7.77778H6.22222M0 14H14V0H0V14Z"
+                                                fill="#848484" />
+                                        </svg>
+                                        <span class="field_type_name">Rating Scale</span>
+                                    </div>
+                                    <div class="field_type_option" field_type="date time" field_type_id="11">
+                                        <svg width="14" height="15" viewBox="0 0 14 15" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M4.66667 6.75H3.11111V8.25H4.66667V6.75ZM7.77778 6.75H6.22222V8.25H7.77778V6.75ZM10.8889 6.75H9.33333V8.25H10.8889V6.75ZM12.4444 1.5H11.6667V0H10.1111V1.5H3.88889V0H2.33333V1.5H1.55556C0.692222 1.5 0 2.175 0 3V13.5C0 13.8978 0.163888 14.2794 0.455612 14.5607C0.747335 14.842 1.143 15 1.55556 15H12.4444C12.857 15 13.2527 14.842 13.5444 14.5607C13.8361 14.2794 14 13.8978 14 13.5V3C14 2.60218 13.8361 2.22064 13.5444 1.93934C13.2527 1.65804 12.857 1.5 12.4444 1.5ZM12.4444 13.5H1.55556V5.25H12.4444V13.5Z"
+                                                fill="#848484" />
+                                        </svg>
+                                        <span class="field_type_name">Date/Time</span>
+                                    </div>
+                                    <div class="field_type_option" field_type="slider" field_type_id="8">
+                                        <svg width="15" height="5" viewBox="0 0 15 5" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <rect y="3" width="15" height="2" fill="#848484" />
+                                            <circle cx="7" cy="2" r="2" fill="#848484" />
+                                        </svg>
+                                        <span class="field_type_name">Slider</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dragging_icon" title="Drag">
+                            <div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" placeholder="Description (optional)" class="question_description">
+                    <div class="options_main_container">
+                    </div>
+                    <div class="question_additional_fields">
+                        <img src="https://cdn0.workadvantage.in/images/cdn_upload/cdn/2373/0893b43784.svg" alt="error" title="Duplicate"
+                            class="duplicate_question">
+                        <img src="https://cdn2.workadvantage.in/images/cdn_upload/cdn/2374/a521fed262.svg" alt="error" title="Delete" class="delete_question">
+                        <span class="additional_field_seperator"></span>
+                        <div class="custom-switch">
+                            <span>Required</span>
+                            <div class="switch_btn" onclick="requiredToggle(this)">
+                                <div class="unchecked_btn"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+
+        function optionsTemplate(option_name) {
+            var option_template = ``;
+            switch (option_name) {
+                case 'multiple choice':
+                    option_template = `<div class="option_container">
+                <input type="radio" disabled>
+                <input type="text" class="option_input_box" placeholder="option">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="disabled_option add">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM11 5H9V9H5V11H9V15H11V11H15V9H11V5Z"
+                        fill="#B8B6B6" />
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="disabled_option delete">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM5 11H15V9H5"
+                        fill="#B8B6B6" />
+                </svg>
+            </div>
+            <div class="option_container">
+                <input type="radio" disabled>
+                <input type="text" class="option_input_box" placeholder="option">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="active_option add">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM11 5H9V9H5V11H9V15H11V11H15V9H11V5Z"
+                        fill="#B8B6B6" />
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="disabled_option delete">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM5 11H15V9H5"
+                        fill="#B8B6B6" />
+                </svg>
+            </div>`;
+                    console.log('this is a multiple choice.');
+                    break;
+                case 'checkbox':
+                    option_template = `<div class="option_container">
+                <input type="checkbox" disabled>
+                <input type="text" class="option_input_box" placeholder="option">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="disabled_option add">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM11 5H9V9H5V11H9V15H11V11H15V9H11V5Z"
+                        fill="#B8B6B6" />
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="disabled_option delete">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM5 11H15V9H5"
+                        fill="#B8B6B6" />
+                </svg>
+            </div>
+            <div class="option_container">
+                <input type="checkbox" disabled>
+                <input type="text" class="option_input_box" placeholder="option">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="active_option add">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM11 5H9V9H5V11H9V15H11V11H15V9H11V5Z"
+                        fill="#B8B6B6" />
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="disabled_option delete">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM5 11H15V9H5"
+                        fill="#B8B6B6" />
+                </svg>
+            </div>`;
+                    console.log('this is an checkbox.');
+                    break;
+                case 'dropdown':
+                    option_template = `<div class="option_container">
+                <input type="text" class="option_input_box" placeholder="option">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="disabled_option add">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM11 5H9V9H5V11H9V15H11V11H15V9H11V5Z"
+                        fill="#B8B6B6" />
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="disabled_option delete">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM5 11H15V9H5"
+                        fill="#B8B6B6" />
+                </svg>
+            </div>
+            <div class="option_container">
+                <input type="text" class="option_input_box" placeholder="option">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="active_option add">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM11 5H9V9H5V11H9V15H11V11H15V9H11V5Z"
+                        fill="#B8B6B6" />
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="disabled_option delete">
+                    <path
+                        d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM5 11H15V9H5"
+                        fill="#B8B6B6" />
+                </svg>
+            </div>`;
+                    console.log('this is dropdown.');
+                    break;
+                case 'textbox':
+                    option_template = `<div class="option_text_container">
+            </div>
+            <div class="text_length_container">
+                <div>
+                    <span>Min Length</span>
+                    <input type="text" class="text_length min_length">
+                </div>
+                <div>
+                    <span>Max Length</span>
+                    <input type="text" class="text_length max_length">
+                </div>
+            </div>`;
+                    console.log('this is textarea.');
+                    break;
+                case 'comment box':
+                    option_template = `<div class="option_text_container">
+            </div>
+            <div class="text_length_container">
+                <div>
+                    <span>Min Length</span>
+                    <input type="text" class="text_length min_length">
+                </div>
+                <div>
+                    <span>Max Length</span>
+                    <input type="text" class="text_length max_length">
+                </div>
+            </div>`;
+                    console.log('this is comment Box.');
+                    break;
+                case 'slider':
+                    option_template = `<div class="text_length_container">
+                    <div>
+                        <span>Min Length</span>
+                        <input type="text" class="text_length min_length">
+                    </div>
+                    <div>
+                        <span>Max Length</span>
+                        <input type="text" class="text_length max_length">
+                    </div>
+                </div>`;
+                    console.log('this is slider.');
+                    break;
+                case 'star rating':
+                    option_template = `<div class="rating_length_container">
+                <div>
+                    <span>Star Length</span>
+                    <input type="text" class="rating_length">
+                </div>
+            </div>`;
+                    console.log('this is star rating.');
+                    break;
+                case 'rating scale':
+                    option_template = `<div class="rating_length_container">
+                <div>
+                    <span>Rating Scale</span>
+                    <input type="text" class="rating_length">
+                </div>
+            </div>`;
+                    console.log('this is rating scale.');
+                    break;
+                case 'date time':
+                    option_template = `<div class="date_time_container">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M7.14286 6C6.83975 6 6.54906 5.89464 6.33474 5.70711C6.12041 5.51957 6 5.26522 6 5V1C6 0.734784 6.12041 0.48043 6.33474 0.292893C6.54906 0.105357 6.83975 0 7.14286 0C7.44596 0 7.73665 0.105357 7.95098 0.292893C8.16531 0.48043 8.28571 0.734784 8.28571 1V5C8.28571 5.26522 8.16531 5.51957 7.95098 5.70711C7.73665 5.89464 7.44596 6 7.14286 6ZM20.8571 6C20.554 6 20.2633 5.89464 20.049 5.70711C19.8347 5.51957 19.7143 5.26522 19.7143 5V1C19.7143 0.734784 19.8347 0.48043 20.049 0.292893C20.2633 0.105357 20.554 0 20.8571 0C21.1602 0 21.4509 0.105357 21.6653 0.292893C21.8796 0.48043 22 0.734784 22 1V5C22 5.26522 21.8796 5.51957 21.6653 5.70711C21.4509 5.89464 21.1602 6 20.8571 6Z"
+                        fill="#848484" />
+                    <path
+                        d="M24.7692 28H3.23077C1.44954 28 0 26.5418 0 24.75V5.25C0 3.45817 1.44954 2 3.23077 2H24.7692C26.5505 2 28 3.45817 28 5.25V24.75C28 26.5418 26.5505 28 24.7692 28ZM3.23077 4.16667C2.94515 4.16667 2.67123 4.2808 2.46927 4.48397C2.26731 4.68713 2.15385 4.96268 2.15385 5.25V24.75C2.15385 25.0373 2.26731 25.3129 2.46927 25.516C2.67123 25.7192 2.94515 25.8333 3.23077 25.8333H24.7692C25.0548 25.8333 25.3288 25.7192 25.5307 25.516C25.7327 25.3129 25.8462 25.0373 25.8462 24.75V5.25C25.8462 4.96268 25.7327 4.68713 25.5307 4.48397C25.3288 4.2808 25.0548 4.16667 24.7692 4.16667H3.23077Z"
+                        fill="#848484" />
+                    <path
+                        d="M26.9231 10.1429H1.07692C0.791305 10.1429 0.517386 10.03 0.315423 9.82904C0.113461 9.62811 0 9.35559 0 9.07143C0 8.78727 0.113461 8.51475 0.315423 8.31381C0.517386 8.11288 0.791305 8 1.07692 8H26.9231C27.2087 8 27.4826 8.11288 27.6846 8.31381C27.8865 8.51475 28 8.78727 28 9.07143C28 9.35559 27.8865 9.62811 27.6846 9.82904C27.4826 10.03 27.2087 10.1429 26.9231 10.1429ZM8.61539 12.2857H10.7692V14.4286H8.61539V12.2857ZM12.9231 12.2857H15.0769V14.4286H12.9231V12.2857ZM17.2308 12.2857H19.3846V14.4286H17.2308V12.2857ZM21.5385 12.2857H23.6923V14.4286H21.5385V12.2857ZM4.30769 16.5714H6.46154V18.7143H4.30769V16.5714ZM8.61539 16.5714H10.7692V18.7143H8.61539V16.5714ZM12.9231 16.5714H15.0769V18.7143H12.9231V16.5714ZM17.2308 16.5714H19.3846V18.7143H17.2308V16.5714ZM21.5385 16.5714H23.6923V18.7143H21.5385V16.5714ZM4.30769 20.8571H6.46154V23H4.30769V20.8571ZM8.61539 20.8571H10.7692V23H8.61539V20.8571ZM12.9231 20.8571H15.0769V23H12.9231V20.8571Z"
+                        fill="#848484" />
+                </svg>
+            </div>`;
+                    console.log('this is date time');
+                    break;
+                case '':
+                    console.log('this is .');
+                    break;
+                default:
+                    console.log('this is unknown.');
+                    break;
+            }
+            return option_template;
+        }
+
+        function optionTemplateOnAddition(option_type) {
+            var option_template = ``;
+            switch (option_type) {
+                case "1":
+                    option_template = `<div class="option_container">
+                <input type="radio" disabled="">
+                <input type="text" class="option_input_box" placeholder="option">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="active_option add">
+                    <path d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM11 5H9V9H5V11H9V15H11V11H15V9H11V5Z" fill="#B8B6B6"></path>
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="active_option delete">
+                    <path d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM5 11H15V9H5" fill="#B8B6B6"></path>
+                </svg>
+            </div>`;
+                    console.log('Option -> multichoice');
+                    break;
+                case "2":
+                    option_template = `<div class="option_container">
+                <input type="checkbox" disabled="">
+                <input type="text" class="option_input_box" placeholder="option">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="active_option add">
+                    <path d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM11 5H9V9H5V11H9V15H11V11H15V9H11V5Z" fill="#B8B6B6"></path>
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="active_option delete">
+                    <path d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM5 11H15V9H5" fill="#B8B6B6"></path>
+                </svg>
+            </div>`;
+                    console.log('Option -> checkbox');
+                    break;
+                case "3":
+                    option_template = `<div class="option_container">
+                <input type="text" class="option_input_box" placeholder="option">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="active_option add">
+                    <path d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM11 5H9V9H5V11H9V15H11V11H15V9H11V5Z" fill="#B8B6B6"></path>
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="active_option delete">
+                    <path d="M10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM10 0C8.68678 0 7.38642 0.258658 6.17317 0.761205C4.95991 1.26375 3.85752 2.00035 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 12.6522 1.05357 15.1957 2.92893 17.0711C3.85752 17.9997 4.95991 18.7362 6.17317 19.2388C7.38642 19.7413 8.68678 20 10 20C12.6522 20 15.1957 18.9464 17.0711 17.0711C18.9464 15.1957 20 12.6522 20 10C20 8.68678 19.7413 7.38642 19.2388 6.17317C18.7362 4.95991 17.9997 3.85752 17.0711 2.92893C16.1425 2.00035 15.0401 1.26375 13.8268 0.761205C12.6136 0.258658 11.3132 0 10 0ZM5 11H15V9H5" fill="#B8B6B6"></path>
+                </svg>
+            </div>`;
+                    console.log('Option -> dropdown');
+                    break;
+                default:
+                    console.log('this is unknown.');
+                    break;
+            }
+            return option_template;
+        }
+
+        function requiredToggle(curr_obj) {
+            $(curr_obj).toggleClass('checked_btn_bg').find('.unchecked_btn').toggleClass('checked_btn');
+            if ($(curr_obj).find('.unchecked_btn').attr('class') == 'unchecked_btn checked_btn') {
+                console.log("Field marked as checked");
+            } else {
+                console.log("Field marked as not checked");
+            }
+            // Update the response
+            updateInfo();
+        }
+
+        function draggableQuestions() {
+            // $('.question_wrapper').attr('draggable', true);
+
+            var dragging = null;
+
+            $('body').on('dragstart', '.question_wrapper', function (event) {
+                dragging = $(this);
+            });
+
+            $('body').on('dragover', '.question_wrapper', function (event) {
+                event.preventDefault();
+                var target = $(event.target);
+                if (dragging && dragging.hasClass('question_wrapper') && dragging[0] != target[0] && target.hasClass('question_wrapper') && !target.parents().hasClass('question_wrapper')) {
+                    var targetPos = target.index();
+                    var draggingPos = dragging.index();
+                    if (targetPos < draggingPos) {
+                        target.before(dragging);
+                    } else {
+                        target.after(dragging);
+                    }
+                }
+                // Update the question indexing
+                updateQuestionsIndex();
+
+                // Update the response
+                updateInfo();
+                //
+                // // Scroll the screen automatically
+                // var wrapperTop = $('.question_wrapper:first-child').offset().top;
+                // var wrapperBottom = $('.question_wrapper:last-child').offset().top + $('.question_wrapper:last-child').height();
+                // var scrollTop = $(window).scrollTop();
+                // var windowHeight = $(window).height();
+                // if (wrapperTop < 0) {
+                //     $(window).scrollTop(scrollTop + wrapperTop);
+                // } else if (wrapperBottom > scrollTop + windowHeight) {
+                //     $(window).scrollTop(scrollTop + (wrapperBottom - (scrollTop + windowHeight)));
+                // }
+
+            });
+
+            $('body').on('dragend', '.question_wrapper', function (event) {
+                dragging = null;
+            });
+        }
+
+        function updateQuestionsIndex() {
+            $('.question_index').each(function (index) {
+                $(this).text("Q" + (index + 1));
+            });
+        }
+
+        let survey_btn_bottom_container_position;
+
+        $(document).ready(function () {
+            survey_btn_bottom_container_position = window.innerHeight - $(".survey_btn_bottom_container").outerHeight();
+            $(".survey_btn_bottom_container").css({
+                'top': survey_btn_bottom_container_position,
+                "opacity": 1
+            });
+            $(".questions_main_container,.main_wrapper_preview").css({
+                'max-height': survey_btn_bottom_container_position - 85,
+                'height': survey_btn_bottom_container_position - 85,
+            });
+
+            if (window.outerWidth <= 1000) {
+                alert("To get the user-side view of survey and quiz, please switch to the web mode");
+            }
+            
+            draggableQuestions();
+
+            // ---------------Add question through Add Question Button------------------------
+            $(document).on('click', "#add_question", function () {
+                if (active_state == "Survey_Creation") {
+                    questions_main_container.append(question_wrapper);
+                    // Update the question indexing
+                    updateQuestionsIndex();
+                }
+            })
+
+            // ---------- Dropdown Logic -------------------------
+            // Hide and show the dropdown
+            $(document).on('click', '.question_dropdown', function () {
+                var $dropdown = $(this).closest('.question_container').find(".field_type_main_container");
+                $('.field_type_main_container').not($dropdown).addClass('hide');
+                $dropdown.toggleClass('hide');
+            })
+            // selecting the dropdown value
+            $(document).on('click', ".field_type_option", function () {
+                var curr_obj = $(this)
+                var field_type_id = curr_obj.attr('field_type_id');
+                var curr_main_parent = curr_obj.closest('.question_container');
+                curr_main_parent.find(".field_type_main_container").toggleClass('hide');
+                curr_main_parent.find('.selected_type').text(`${curr_obj.find('.field_type_name').text()}`).attr("id", field_type_id);
+                console.log(curr_obj.attr('field_type'), curr_obj.attr('field_type_id')); // Storing the field type at backend through class name
+                // Initiallize the option template
+                curr_obj.closest('.question_wrapper').find(".options_main_container").html(optionsTemplate(curr_obj.attr('field_type')));
+                // Update the response
+                updateInfo();
+            })
+
+            // // Hide dropdown on document click
+            $(document).on('click', function (event) {
+                // Check if the click target is not an .question_dropdown or .field_type_main_container element
+                if (!$(event.target).is('.question_dropdown,.field_type_main_container, .field_type_option,.selected_type,.ques_dropdown_img,.field_type_container')) {
+                    // Hide all .question_dropdown elements
+                    $('.field_type_main_container').addClass('hide');
+                }
+            });
+            //----------------------------------------------------------------------------------------------------------------
+
+            // -------------- Options Logic------------------
+            $(document).on('click', '.option_container .active_option.add', function () {
+                console.log('Adding option');
+                var field_type_id = $(this).closest('.question_wrapper').find('.selected_type').attr('id')
+                $(this).closest('.option_container').after(optionTemplateOnAddition(field_type_id));
+                // Update the response
+                updateInfo();
+            });
+
+            $(document).on('click', '.option_container .active_option.delete', function () {
+                console.log('Remove Option');
+                $(this).closest('.option_container').remove();
+                // Update the response
+                updateInfo();
+            });
+            // ------------------------------------------------------------------------------------------------------------------
+
+            // ----------------- Question Delete------------------------------------
+            $(document).on('click', '.delete_question', function () {
+                console.log('Delete Question');
+                $(this).closest('.question_wrapper').remove();
+
+                // Update the question indexing
+                updateQuestionsIndex();
+
+                // Update the response
+                updateInfo();
+            });
+            // -----------------------------------------------------------------------------------------------------------
+
+            // ----------------- Question Duplicate ------------------------------------
+            $(document).on('click', '.duplicate_question', function () {
+                var curr_obj = $(this).closest('.question_wrapper');
+                curr_obj.after(curr_obj.clone());
+
+                // Update the question indexing
+                updateQuestionsIndex();
+
+                // Update the response
+                updateInfo();
+            });
+            // -----------------------------------------------------------------------------------------------------------
+
+            // ------------- On Typing Input --------------------------------------
+            $(document).on('input', `input[type="text"]`, function () {
+                // Update the response
+                updateInfo();
+            })
+            // -------------------------Text Area Character range----------------------------------
+            $(document).on('keypress', '.min_length,.max_length,.rating_length', function (event) {
+                if (event.which != 8 && event.which != 0 && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                }
+            });
+            //------------------------------------------------------------------------------------------------
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!--Font-Awesome Head-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        /* ------------Survey UserSide View--------------------------------------- */
+
+        .survey_wrapper {
+            width: 100%;
+            max-width: 1440px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .text_highlighting {
+            width: 100%;
+            text-align: start;
+            font-family: 'Outfit';
+            font-style: normal;
+            color: #494F52;
+        }
+
+        .survey_title {
+            font-weight: 600;
+            font-size: 26px;
+        }
+
+        .survey_description {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .survey_sub_heading {
+            font-weight: 600;
+            font-size: 24px;
+        }
+
+        .survey_sub_text {
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        /* --------------------------------------------------------------------------- */
+
+        .user_side_question_main_container {
+            margin: 40px auto;
+            max-width: 1000px;
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .user_side_question_wrapper {
+            width: 100%;
+            height: auto;
+            background: #FFFFFF;
+            border: 1px solid #E8E9EA;
+            box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            gap: 20px;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .user_side_question {
+            max-width: 922px;
+            width: 100%;
+            text-align: start;
+            height: auto;
+            font-size: 20px;
+        }
+
+        .user_side_question_description {
+            max-width: 900px;
+            width: 100%;
+            text-align: start;
+            height: auto;
+            font-size: 16px;
+            color: #000000a1;
+        }
+
+        .user_side_options_main_container {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 16px;
+        }
+
+        .user_side_option_container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #E8E9EA;
+            border-radius: 24px;
+            cursor: pointer;
+        }
+
+        /* ---------------- Dropdown ------------------- */
+        .user_side_dropdown {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E8E9EA;
+            border-radius: 24px;
+            cursor: pointer;
+        }
+
+        .user_side_option_container select {
+            padding: 15px;
+            /* Adjust the padding value as needed */
+            background-position: right 10px center;
+            /* Adjust the position of the arrow as needed */
+            background-repeat: no-repeat;
+            background-image: url('https://cdn0.workadvantage.in/images/cdn_upload/cdn/2420/f978a3a71a.svg');
+            /* Replace with your arrow image */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        /* ----------------------------------------------------------------- */
+
+        .option_active_state {
+            background: #EFF9FE;
+        }
+
+        /* ----------------- TextBox ----------------------- */
+        .user_side_textbox {
+            border-radius: 8px;
+            padding: 12px;
+            border: none;
+            height: 200px;
+            width: 100%;
+            border: 2px solid #E8E9EA;
+            resize: none;
+        }
+
+
+        .char_limit {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        /* ----------------------------------------------------- */
+
+        /* ------------Slider------------------------ */
+        .slidecontainer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: black;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: black;
+            cursor: pointer;
+        }
+
+        .slider_range {
+            color: black;
+        }
+
+        /* -------------------------------------------- */
+
+        /* ------ Star Rating -------------- */
+        .rating {
+            position: relative;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 4px;
+        }
+
+        .rating input {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .rating input::before {
+            content: '\f005';
+            position: absolute;
+            font-family: fontAwesome;
+            font-size: 34px;
+            color: #111;
+            transition: 0.5s;
+        }
+
+        .rating input:hover~input::before,
+        .rating input:hover::before,
+        .rating input:checked~input::before,
+        .rating input:checked::before {
+            color: #ff9933;
+        }
+
+        /* ------------------------------------------------ */
+
+        /* --------------- Date and Time ----------------- */
+        .date_container {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            border: 2px solid #E8E9EA;
+            border-radius: 24px;
+        }
+
+        /* ------------------------------------------------ */
+
+        /* ----------------- Rating Scale ----------------------- */
+        .rating_scale {
+            width: 100%;
+            border: 1px solid #E8E9EA;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row-reverse;
+            width: fit-content;
+            background-color: black;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+        }
+
+        .rating_scale input {
+            display: none
+        }
+
+        .rating_scale label {
+            display: flex;
+            width: 50px;
+            height: 50px;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .rating_scale label {
+            border: 1px solid #E8E9EA;
+            transition: .3s;
+        }
+
+        .rating_scale input[type='radio']:hover~label,
+        input[type='radio']:checked~label {
+            background: none;
+            color: #fff;
+        }
+
+        /* ------------------------------------------------------------------ */
+        .survey_btn1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 20px;
+            background: black;
+            border-radius: 8px;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            text-align: center;
+            color: #FFFFFF;
+            height: fit-content;
+            width: fit-content;
+            cursor: pointer;
+        }
+
+        .save_btn_container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        /* ----------------------------------------------------- */
+        .character_count {
+            width: 100%;
+        }
+
+        .error_message {
+            color: red;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            width: 100%;
+            max-width: 900px;
+            letter-spacing: 1px;
+            word-spacing: 1px;
+            display: none;
+        }
+
+        .text_error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- <div class="main_frame_wrapper">
+        <div class="outer_frame"></div>
+    </div> -->
+    <div class="survey_wrapper">
+        <div class="survey_title text_highlighting">Survey Heading</div>
+        <div class="survey_description text_highlighting">
+            <span class="survey_sub_heading text_highlighting">Description</span>
+            <span class="survey_sub_text text_highlighting">This is a user side view of survey covering all the question types that could be possibly created from the questionnaire creation webpage incorporating all the possible validations and error checks.</span>
+        </div>
+        <div class="user_side_question_main_container">
+        </div>
+        <div class="save_btn_container">
+            <div class="survey_btn1" id="save" onclick="saveUserResponse()">Save</div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        let text_tracking_container, max_character_limit, min_character_limit, character_count, text_str;
+
+        function saveUserResponse() {
+            let main_user_response = {
+                "user_response":
+                {
+                    "survey_answers_attributes": []
+                }
+            }
+            let all_conditions_satisfied = true;
+            let survey_answers_attributes = [];
+            let question_info = $(".user_side_question_wrapper");
+            let ques_id, ques_type, answer_string, option_ids, is_mandatory, min_len, max_len;
+            question_info.each(function () {
+                ques_id = parseInt($(this).attr('id'));
+                ques_type = $(this).attr('ques_type');
+                answer_string = null;
+                option_ids = [];
+                is_mandatory = $(this).attr('is_required');
+                // console.log(ques_id, ques_type, answer_string, option_ids);
+                if (ques_type == "MCQ" || ques_type == "CHECKBOX") {
+                    option_ids = $(`input[name='${ques_id}']:checked`).map(function () {
+                        return parseInt($(this).attr('id'));
+                    }).get();
+                    // console.log(ques_type, option_ids.length, is_mandatory);
+                    if (option_ids.length == 0 && is_mandatory == "true") {
+                        window.location.href = `#${ques_id}`;
+                        all_conditions_satisfied = false;
+                        $(`#error_msg${ques_id}`).html(`This field is required`).show();
+                        return false;
+                    }
+                } else if (ques_type == "DROPDOWN") {
+                    var dropdown_id = $(`#${ques_id}`).find(':selected').attr('id');
+                    if (dropdown_id != '') {
+                        option_ids.push(parseInt(dropdown_id));
+                    }
+                    // console.log(option_ids);
+                    if (option_ids[0] == null && is_mandatory == "true") {
+                        window.location.href = `#${ques_id}`;
+                        all_conditions_satisfied = false;
+                        $(`#error_msg${ques_id}`).html(`This field is required`).show();
+                        return false;
+                    }
+                } else if (ques_type == "TEXTBOX" || ques_type == "COMMENT_BOX") {
+                    answer_string = $(`textarea[name='${ques_id}']`).val().trim();
+                    var str_len = answer_string.length;
+                    min_len = parseInt($(`.min_char_limit[data_id="${ques_id}"]`).attr('data_val'));
+                    max_len = parseInt($(`.max_char_limit[data_id="${ques_id}"]`).attr('data_val'));
+                    // console.log(answer_string, str_len, min_len, max_len);
+                    if ((str_len < min_len || str_len > max_len) && is_mandatory == "true") {
+                        window.location.href = `#${ques_id}`;
+                        all_conditions_satisfied = false;
+                        $(`.min_char_limit[data_id="${ques_id}"]`).addClass('text_error');
+                        return false;
+                    }
+                } else if (ques_type == "SLIDER") {
+                    answer_string = parseInt($(`input[id='${ques_id}']`).val());
+                    // console.log(answer_string);
+                } else if (ques_type == "STAR_RATING") {
+                    answer_string = $(`#star_rate${ques_id} input[name='star_rating${ques_id}']:checked`).val();
+                    // console.log(answer_string, answer_string == null);
+                    if (answer_string == null && is_mandatory == "true") {
+                        window.location.href = `#${ques_id}`;
+                        all_conditions_satisfied = false;
+                        $(`#error_msg${ques_id}`).html(`This field is required`).show();
+                        return false;
+                    }
+
+                    answer_string = parseInt(answer_string);
+                } else if (ques_type == "RATING_SCALE") {
+                    answer_string = $(`#${ques_id}.rating_scale input[name='rating_scale${ques_id}']:checked`).val();
+                    // console.log(answer_string, answer_string == null);
+                    if (answer_string == null && is_mandatory == "true") {
+                        window.location.href = `#${ques_id}`;
+                        all_conditions_satisfied = false;
+                        $(`#error_msg${ques_id}`).html(`This field is required`).show();
+                        return false;
+                    }
+                    answer_string = parseInt(answer_string);
+                } else if (ques_type == "DATE_TIME") {
+                    answer_string = $(`input[id='${ques_id}']`).val();
+                    // console.log(answer_string);
+                    if (answer_string == '' && is_mandatory == "true") {
+                        window.location.href = `#${ques_id}`;
+                        all_conditions_satisfied = false;
+                        $(`#error_msg${ques_id}`).html(`This field is required`).show();
+                        return false;
+                    }
+                }
+                survey_answers_attributes.push(
+                    {
+                        "survey_question_id": ques_id,
+                        "survey_question_type": ques_type,
+                        "option_id": option_ids,
+                        "resp": answer_string
+                    }
+                )
+            })
+
+            if (all_conditions_satisfied) {
+                main_user_response.user_response.survey_answers_attributes = survey_answers_attributes;
+                console.log(main_user_response);
+                alert("Survey Saved Successfully.You can check the console");
+                // Call Submit_User_Response API
+            }
+        }
+
+
+        $(document).ready(function () {
+            let isRequired_template = `<span style="color: red;" title="Required"> *</span>`;
+            let user_side_survey_response = ``;
+            let response = {
+                "success": true,
+                "survey_name": "Immersion Survey - Day 15",
+                "survey_description": "",
+                "survey_question_details": [
+                    {
+                        "question_id": 61,
+                        "statemnent": "Rate your Skills",
+                        "description": "",
+                        "is_mandatory": true,
+                        "ques_type": "RATING_SCALE",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": 10
+                        },
+                        "options_attributes": []
+                    },
+                    {
+                        "question_id": 60,
+                        "statemnent": "Comment something about yor company?",
+                        "description": "",
+                        "is_mandatory": true,
+                        "ques_type": "COMMENT_BOX",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": 300,
+                            "min_length": 20,
+                            "rating_length": null
+                        },
+                        "options_attributes": []
+                    },
+                    {
+                        "question_id": 53,
+                        "statemnent": "Would you recommend [organization] to your friends as an employer?",
+                        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+                        "is_mandatory": true,
+                        "ques_type": "MCQ",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": null
+                        },
+                        "options_attributes": [
+                            {
+                                "id": 92,
+                                "survey_question_id": 53,
+                                "statement": "Absolutely!",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.000Z",
+                                "updated_at": "2023-05-16T06:17:11.000Z"
+                            },
+                            {
+                                "id": 93,
+                                "survey_question_id": 53,
+                                "statement": "Maybe",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.001Z",
+                                "updated_at": "2023-05-16T06:17:11.001Z"
+                            },
+                            {
+                                "id": 94,
+                                "survey_question_id": 53,
+                                "statement": "Not very Likely",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            },
+                            {
+                                "id": 95,
+                                "survey_question_id": 53,
+                                "statement": "Never",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            }
+                        ]
+                    },
+                    {
+                        "question_id": 54,
+                        "statemnent": "Which is your favourite company?",
+                        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+                        "is_mandatory": true,
+                        "ques_type": "CHECKBOX",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": null
+                        },
+                        "options_attributes": [
+                            {
+                                "id": 11,
+                                "survey_question_id": 54,
+                                "statement": "A",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.000Z",
+                                "updated_at": "2023-05-16T06:17:11.000Z"
+                            },
+                            {
+                                "id": 12,
+                                "survey_question_id": 54,
+                                "statement": "B",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.001Z",
+                                "updated_at": "2023-05-16T06:17:11.001Z"
+                            },
+                            {
+                                "id": 13,
+                                "survey_question_id": 54,
+                                "statement": "C",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            },
+                            {
+                                "id": 14,
+                                "survey_question_id": 54,
+                                "statement": "D",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            }
+                        ]
+                    },
+                    {
+                        "question_id": 55,
+                        "statemnent": "Which product according to you is the best?",
+                        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+                        "is_mandatory": false,
+                        "ques_type": "DROPDOWN",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": null
+                        },
+                        "options_attributes": [
+                            {
+                                "id": 21,
+                                "survey_question_id": 55,
+                                "statement": "Type1",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.000Z",
+                                "updated_at": "2023-05-16T06:17:11.000Z"
+                            },
+                            {
+                                "id": 22,
+                                "survey_question_id": 55,
+                                "statement": "Type2",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.001Z",
+                                "updated_at": "2023-05-16T06:17:11.001Z"
+                            },
+                            {
+                                "id": 23,
+                                "survey_question_id": 55,
+                                "statement": "Type3",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            },
+                        ]
+                    },
+                    {
+                        "question_id": 56,
+                        "statemnent": "Write something about your experience?",
+                        "description": "",
+                        "is_mandatory": true,
+                        "ques_type": "TEXTBOX",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": 450,
+                            "min_length": 0,
+                            "rating_length": null
+                        },
+                        "options_attributes": []
+                    },
+                    {
+                        "question_id": 57,
+                        "statemnent": "How much do you know C++?",
+                        "description": "",
+                        "is_mandatory": true,
+                        "ques_type": "SLIDER",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": 100,
+                            "min_length": 1,
+                            "rating_length": null
+                        },
+                        "options_attributes": []
+                    },
+                    {
+                        "question_id": 58,
+                        "statemnent": "Rate your experience",
+                        "description": "",
+                        "is_mandatory": true,
+                        "ques_type": "STAR_RATING",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": 10
+                        },
+                        "options_attributes": []
+                    },
+                    {
+                        "question_id": 100,
+                        "statemnent": "How much do you know Python?",
+                        "description": "",
+                        "is_mandatory": true,
+                        "ques_type": "SLIDER",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": 10,
+                            "min_length": 0,
+                            "rating_length": null
+                        },
+                        "options_attributes": []
+                    },
+                    {
+                        "question_id": 59,
+                        "statemnent": "When you were born?",
+                        "description": "",
+                        "is_mandatory": true,
+                        "ques_type": "DATE_TIME",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": null
+                        },
+                        "options_attributes": []
+                    },
+                    {
+                        "question_id": 155,
+                        "statemnent": "Which product according to you is the best?",
+                        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+                        "is_mandatory": true,
+                        "ques_type": "DROPDOWN",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": null
+                        },
+                        "options_attributes": [
+                            {
+                                "id": 121,
+                                "survey_question_id": 155,
+                                "statement": "Type1",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.000Z",
+                                "updated_at": "2023-05-16T06:17:11.000Z"
+                            },
+                            {
+                                "id": 122,
+                                "survey_question_id": 155,
+                                "statement": "Type2",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.001Z",
+                                "updated_at": "2023-05-16T06:17:11.001Z"
+                            },
+                            {
+                                "id": 123,
+                                "survey_question_id": 155,
+                                "statement": "Type3",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            },
+                        ]
+                    },
+                ]
+            }
+
+            function optionsTemplate(ques_type, ques_id, option_attributes, min_length, max_length, rating_length) {
+                let option_template = ''
+                // console.log("--> ", ques_type, option_attributes, min_length, max_length, rating_length)
+                if (ques_type == 'MCQ') {
+                    option_attributes.forEach(element => {
+                        let option_value = element.statement;
+                        let option_id = element.id;
+                        option_template += `<label class="user_side_option_container" for=${option_id}>
+                    <input type="radio" name=${ques_id} id=${option_id} value=${option_value}>
+                    <div class="user_side_option">${option_value}</div>
+                </label>`;
+                    });
+
+                } else if (ques_type == "CHECKBOX") {
+                    option_attributes.forEach(element => {
+                        let option_value = element.statement;
+                        let option_id = element.id;
+                        option_template += `<label class="user_side_option_container" for=${option_id}>
+                    <input type="checkbox" name=${ques_id} id=${option_id} value=${option_value}>
+                    <div class="user_side_option">${option_value}</div>
+                </label>`;
+                    });
+
+                } else if (ques_type == "DROPDOWN") {
+                    option_attributes.forEach(element => {
+                        let option_value = element.statement;
+                        let option_id = element.id;
+                        option_template += `<option value=${option_value} id=${option_id}>${option_value}</option>`;
+                    });
+                    option_template = `<label class="user_side_option_container" for=${ques_id}>
+                <select id=${ques_id} class="user_side_dropdown">
+                    <option value="null" id=''>Select</option>
+                    ${option_template}
+                </select>
+            </label>`
+
+                } else if (ques_type == "TEXTBOX" || ques_type == "COMMENT_BOX") {
+                    option_template = ` <textarea name=${ques_id} class="user_side_textbox"></textarea>
+                <div class="char_limit">
+                    <span class="min_char_limit" data_id=${ques_id} data_val=${min_length}>Min Character Limit : ${min_length}</span>
+                    <span class="max_char_limit" data_id=${ques_id} data_val=${max_length}>Max Character Limit : ${max_length}</span>
+                </div>
+                <span class="character_count" data_id=${ques_id}>Character Count : 0</span>`;
+
+                } else if (ques_type == "SLIDER") {
+                    option_template = `<div class="slidecontainer">
+                    <input type="range" min=${min_length} max=${max_length} value=${min_length} class="slider" id=${ques_id}>
+                    <span>Value : <span class="slider_range" id=${ques_id}>${min_length}</span></span>
+                </div>`;
+
+                } else if (ques_type == "STAR_RATING") {
+                    for (let i = rating_length; i > 0; i--) {
+                        // Code to be executed in each iteration
+                        option_template += `<input type="radio" name="star_rating${ques_id}" style="--c: #ff9933" value=${i} />`;
+                    }
+                    option_template = `<div class="rating" id='star_rate${ques_id}'>${option_template}</div>`;
+
+                } else if (ques_type == "RATING_SCALE") {
+                    for (let i = rating_length; i > 0; i--) {
+                        // Code to be executed in each iteration
+                        option_template += `<input type="radio" name="rating_scale${ques_id}" id="rata${i}_${ques_id}" value=${i}><label for="rata${i}_${ques_id}">${i}</label>`;
+                    }
+                    option_template = `<div class="rating_scale" id=${ques_id}>${option_template}</div>`;
+
+                } else if (ques_type == "DATE_TIME") {
+                    option_template = `<input type="date" class="date_container" id=${ques_id}>`;
+                }
+
+                return option_template;
+            }
+
+
+            // After Calling Particular_Survey_Detail API
+            response.survey_question_details.forEach((element, index) => {
+                let ques_id = element.question_id;
+                let ques = element.statemnent;
+                let ques_type = element.ques_type;
+                let desc = element.description;
+                let is_mandatory = element.is_mandatory;
+                let required_html = is_mandatory ? isRequired_template : '';
+                let error_html = is_mandatory ? `<span class="error_message" id="error_msg${ques_id}"></span>` : '';
+                let option_attributes = element.options_attributes;
+                let min_length = element.extras.min_length==null?0: element.extras.min_length;
+                let max_length = element.extras.max_length == null ? 1000 : element.extras.max_length;
+                let rating_length = (element.extras.rating_length == null || element.extras.rating_length > 10) ? 10 : element.extras.rating_length;
+                // console.log(index,ques_id,ques_type,ques,desc,is_mandatory,option_attributes,min_length,max_length,rating_length);
+                let option_template = optionsTemplate(ques_type, ques_id, option_attributes, min_length, max_length, rating_length);
+                user_side_survey_response += `<div class="user_side_question_wrapper" id=${ques_id} ques_type=${ques_type} is_required=${is_mandatory}>
+                    ${error_html}
+        <div class="user_side_question"><span class="question_index">${index + 1}. </span>${ques}${required_html}</div>
+        <div class="user_side_question_description">${desc}</div>
+        <div class="user_side_options_main_container">
+            ${option_template}
+        </div>
+    </div>`;
+            });
+
+            $('.user_side_question_main_container').html(user_side_survey_response);
+
+            //----------------------------- MCQ and CHECKBOX Logic ---------------------------------------------
+            $(".user_side_option_container input").click(function () {
+                var curr_obj = $(this);
+                var option_type = curr_obj.closest('.user_side_question_wrapper').attr('ques_type');
+                // console.log(option_type);
+                if (option_type == 'MCQ') {
+                    curr_obj.closest('.user_side_options_main_container').find('.user_side_option_container.option_active_state').removeClass('option_active_state');
+                    curr_obj.parent().addClass('option_active_state');
+                    curr_obj.closest('.user_side_question_wrapper').find('.error_message').html('').hide();
+
+                } else if (option_type == 'CHECKBOX') {
+                    var is_checked = curr_obj.is(":checked");
+                    // console.log("input -> checked : ", is_checked);
+                    if (is_checked) {
+                        curr_obj.parent().addClass('option_active_state');
+                        curr_obj.closest('.user_side_question_wrapper').find('.error_message').html('').hide();
+                    } else {
+                        curr_obj.parent().removeClass('option_active_state');
+                    }
+                }
+            })
+
+            // Slider
+            $('input[type="range"]').on('input', function () {
+                $(this).closest(".slidecontainer").find('.slider_range').html($(this).val());
+            });
+
+            // Character Count
+            $('textarea').on('input', function () {
+                text_tracking_container = $(this);
+                text_str = text_tracking_container.val();
+                // text_tracking_container.val(text_str.substr(0,5));
+                // console.log(text_tracking_container.val());
+                var data_id = parseInt(text_tracking_container.attr('name'));
+                max_character_limit = parseInt($(`.max_char_limit[data_id="${data_id}"]`).attr('data_val'));
+                min_character_limit = parseInt($(`.min_char_limit[data_id="${data_id}"]`).attr('data_val'));
+                character_count = text_tracking_container.val().trim().length;
+                // console.log("Text --> ", max_character_limit);
+
+                // remove the error message
+                if (character_count < min_character_limit) {
+                    $(`.min_char_limit[data_id="${data_id}"]`).addClass('text_error');
+                } else {
+                    $(`.min_char_limit[data_id="${data_id}"]`).removeClass('text_error');
+                }
+
+                if (character_count <= max_character_limit) {
+                    $(`.character_count[data_id="${data_id}"]`).html(`Character Count : ${character_count}`);
+                } else {
+                    text_tracking_container.val(text_str.substr(0, max_character_limit));
+                    $(`.character_count[data_id="${data_id}"]`).html(`Character Count : ${max_character_limit}`);
+                }
+            })
+
+            // rating scale,star rating error message 
+            $(`.user_side_question_main_container input[type="radio"]`).click(function () {
+                $(this).closest('.user_side_question_wrapper').find('.error_message').html('').hide();
+            })
+
+            // dropdown error message
+            $('.user_side_question_main_container select').change(function () {
+                var curr_obj = $(this);
+                if (curr_obj.val() == "null") {
+                    curr_obj.closest('.user_side_question_wrapper').find('.error_message').html('This field is required').show();
+                } else {
+                    curr_obj.closest('.user_side_question_wrapper').find('.error_message').html('').hide();
+                }
+            })
+
+            // date and time
+            $(`.user_side_question_main_container input[type="date"]`).change(function () {
+                var curr_obj = $(this);
+                if (curr_obj.val() != "") {
+                    curr_obj.closest('.user_side_question_wrapper').find('.error_message').html('').hide();
+                }
+            })
+
+        })
+
+    </script>
+</body>
+
+</html>

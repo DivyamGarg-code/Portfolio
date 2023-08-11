@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!--Layouting CSS-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main_frame_wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            width: 100vw;
+            /*background: #F7F8FA;*/
+        }
+
+        .outer_frame {
+            width: 25%;
+        }
+
+        .survey_wrapper {
+            position: relative;
+            /* max-width: 1000px; */
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 50px;
+        }
+    </style>
+
+    <!-- Quiz CSS -->
+    <style>
+        .quiz_heading {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            color: #494F52;
+        }
+
+        .quiz_sub_text {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            color: #4D4D4F;
+        }
+
+        .quiz_wrapper {
+            /* max-width: 1440px; */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        /* --------- Test Information ---------------- */
+        .quiz_info {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #FAFBFB;
+        }
+
+        .quiz_info_container {
+            width: 95%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 10px;
+            gap: 10px;
+        }
+
+        .quiz_name_date {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .timer_container {
+            width: 250px;
+            height: 50px;
+            background: #99a7a7b5;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #timer {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            color: #49454F;
+        }
+
+        /* ---------------------------------------- */
+
+        /* ----------- Test description ------------- */
+        .quiz_description_container {
+            width: 95%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* ---------------------------------------- */
+
+        /* ------------ Submit ------------------- */
+        .quiz_btn_container {
+            width: 95%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .quiz_btn {
+            width: fit-content;
+            padding: 8px;
+            background: black;
+            border-radius: 8px;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+        #prev_btn {
+            opacity: 0;
+        }
+
+        /* =========================== Quiz Main Container =========================== */
+        .quiz_main_container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            overflow-y: auto;
+        }
+
+        .quiz_container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* --------------------- Question Css -------------------------------- */
+        .user_side_question_main_container {
+            width: 95%;
+            min-height: 370px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .user_side_question_wrapper {
+            width: 100%;
+            height: auto;
+            background: #FFFFFF;
+            border: 1px solid #DBE7F0;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 24px;
+            gap: 20px;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .user_side_question {
+            max-width: 922px;
+            width: 100%;
+            text-align: start;
+            height: auto;
+            font-size: 20px;
+        }
+
+        .user_side_question_description {
+            max-width: 900px;
+            width: 100%;
+            text-align: start;
+            height: auto;
+            font-size: 16px;
+            color: #000000a1;
+        }
+
+        .user_side_options_main_container {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 16px;
+        }
+
+        .user_side_option_container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #E8E9EA;
+            border-radius: 24px;
+            cursor: pointer;
+        }
+
+        /* ---------------- Dropdown ------------------- */
+        .user_side_dropdown {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E8E9EA;
+            border-radius: 24px;
+            cursor: pointer;
+        }
+
+        .user_side_option_container select {
+            padding: 15px;
+            /* Adjust the padding value as needed */
+            background-position: right 10px center;
+            /* Adjust the position of the arrow as needed */
+            background-repeat: no-repeat;
+            background-image: url('https://cdn0.workadvantage.in/images/cdn_upload/cdn/2420/f978a3a71a.svg');
+            /* Replace with your arrow image */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        /* --------------------------------------------------------------------- */
+
+        /* --------------------Question Palette CSS --------------- */
+        .questions_palette {
+            width: 100%;
+            height: calc(100vh - 100px);
+            max-width: 372px;
+            background: #FAFBFB;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 80px;
+        }
+
+        .palette_text {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ques_title {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            color: #4D4D4F;
+        }
+
+        .ques_text {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            color: #494F52;
+        }
+
+        .palette_icons_container {
+            width: 100%;
+            max-height: 300px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .palette_icon {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #F0F1F1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .answerred {
+            background: #88C270;
+        }
+
+        .not_answerred {
+            background: #F17F79;
+        }
+
+        .not_attempted {
+            background: #FFFFFF;
+        }
+
+        .palette_ques_attempt_info_main_contianer {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .palette_ques_attempt_info_contianer .palette_icon {
+            cursor: default;
+        }
+
+        .palette_ques_attempt_info_contianer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* ---------------------------------------------------------------------- */
+
+        /* ========================================================================================= */
+    </style>
+
+    <!--  Success Pop Up -->
+    <style>
+        .pop_up_main_container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10000000;
+            background: rgba(0, 0, 0, 0.27);
+        }
+
+        .pop_up_container {
+            position: relative;
+            background-color: #FFFFFF;
+            min-height: 300px;
+            min-width: 350px;
+            max-width: 400px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 0 2px 10px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        .success_pop_up_circle,
+        .success_pop_up_circle-border {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .success_pop_up_circle {
+            z-index: 1;
+            position: relative;
+            background: white;
+            transform: scale(1);
+            animation: success-anim 700ms ease;
+        }
+
+        .success_pop_up_circle-border {
+            z-index: 0;
+            position: absolute;
+            background: #8f6;
+            transform: scale(1.1);
+            animation: success_pop_up_circle-anim 400ms ease;
+        }
+
+        @keyframes success-anim {
+            0% {
+                transform: scale(0);
+            }
+
+            30% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes success_pop_up_circle-anim {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        .success_box::before,
+        .success_box::after {
+            content: "";
+            display: block;
+            height: 4px;
+            background: #8f6;
+            position: absolute;
+        }
+
+        .success_box::before {
+            width: 17px;
+            top: 58%;
+            left: 23%;
+            transform: rotateZ(50deg);
+        }
+
+        .success_box::after {
+            width: 30px;
+            top: 50%;
+            left: 35%;
+            transform: rotateZ(-50deg);
+        }
+
+        .pop_up_cross {
+            cursor: pointer;
+            position: absolute;
+            top: 25px;
+            right: 32px;
+            width: 16px;
+        }
+
+        .text_highlighting1 {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .text_highlighting2 {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
+
+    <!-- Submit Pop UP -->
+    <style>
+        .cancel {
+            background-color: #696F73;
+        }
+
+        .active_pallete_item {
+            border: 2px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="main_frame_wrapper">
+        <div class="outer_frame"></div>
+        <div class="survey_wrapper"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        let total_questions, custom_response, not_attempted_cnt, survey_answers_attributes1, user_response_time;
+        let isSubmitted = false;
+        let prev_idx = 0; // By default
+        let curr_idx = 0; // By default
+        let answerred_cnt = 0;
+        let not_answerred_cnt = 0;
+        let palette_icons_html = ``;
+        let survey_answers_attributes = [];
+
+        function blockPage(event) {
+            var confirmationMessage = 'It looks like you have been editing something. '
+                + 'If you leave before saving, your changes will be lost.';
+
+            (event || window.event).returnValue = confirmationMessage; //Gecko + IE
+            return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+        }
+        function getQuizInfo(quiz_name, quiz_desc, quiz_date, quiz_duration, btn_text, total_questions, palette_icons_html) {
+            $("body").html(`<div class="quiz_wrapper">
+        <div class="quiz_info">
+            <div class="quiz_info_container">
+                <div class="quiz_name_date">
+                    <span class="quiz_heading">${quiz_name}</span>
+                    <span id="quiz_date" class="quiz_sub_text">Date - ${quiz_date}</span>
+                </div>
+                <div class="timer_container">
+                    <span id="timer">Time Left: ${quiz_duration}</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            stroke="#49454F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12 6V12L16 14" stroke="#49454F" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="quiz_main_container">
+            <!-- Question Container -->
+            <div class="quiz_container">
+                <div class="quiz_description_container">
+                    <span class="quiz_heading">Description</span>
+                    <span class="quiz_sub_text">${quiz_desc}</span>
+                </div>
+                <div class="user_side_question_main_container"></div>
+                <div class="quiz_btn_container">
+                    <div class="quiz_btn" id="prev_btn">Prev Question</div>
+                    <div class="quiz_btn" id="next_btn">${btn_text}</div>
+                </div>
+            </div>
+            <!--  Question Palette -->
+            <div class="questions_palette">
+                <div class="palette_text">
+                    <span class="ques_title">Question Palette</span>
+                    <span class="ques_text">Question 1 of ${total_questions}</span>
+                </div>
+                <div class="palette_icons_container">
+                    ${palette_icons_html}
+                </div>
+                <div class="palette_ques_attempt_info_main_contianer">
+                    <div class="palette_ques_attempt_info_contianer">
+                        <div class="palette_icon answerred">0</div>
+                        <span class="ques_text">Answered</span>
+                    </div>
+                    <div class="palette_ques_attempt_info_contianer">
+                        <div class="palette_icon not_answerred">0</div>
+                        <span class="ques_text">Not Answered</span>
+                    </div>
+                    <div class="palette_ques_attempt_info_contianer">
+                        <div class="palette_icon not_attempted">${total_questions}</div>
+                        <span class="ques_text">Not Attempted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`);
+        }
+
+
+
+        function updatePaletteCount() {
+            let ques_answerred_track = $(".palette_ques_attempt_info_contianer .palette_icon.answerred");
+            let ques_not_answerred_track = $(".palette_ques_attempt_info_contianer .palette_icon.not_answerred");
+            let ques_not_attempted_track = $(".palette_ques_attempt_info_contianer .palette_icon.not_attempted");
+            answerred_cnt = custom_response.filter((element) => { return (element.answerred == 1 && element.is_visited == 1 && element.not_answerred == 0); }).length;
+            not_answerred_cnt = custom_response.filter((element) => { return (element.answerred == 0 && element.is_visited == 1 && element.not_answerred == 1); }).length;
+            not_attempted_cnt = custom_response.filter((element) => { return (element.answerred == 0 && element.is_visited == 0 && element.not_answerred == 1); }).length;
+            ques_answerred_track.text(answerred_cnt);
+            ques_not_answerred_track.text(not_answerred_cnt);
+            ques_not_attempted_track.text(not_attempted_cnt);
+        }
+
+        function getOptionIds(ques_id, ques_type, curr_idx) {
+            console.log(ques_id, ques_type);
+            let option_ids = [];
+            if (ques_type == "MCQ" || ques_type == "CHECKBOX") {
+                option_ids = $(`input[name='${ques_id}']:checked`).map(function () {
+                    return parseInt($(this).attr('id'));
+                }).get();
+            } else if (ques_type == "DROPDOWN") {
+                var dropdown_id = $(`#${ques_id}`).find(':selected').attr('id');
+                if (dropdown_id != '') {
+                    option_ids.push(parseInt(dropdown_id));
+                }
+            }
+            console.log(option_ids);
+            let curr_option_ids_len = option_ids.length;
+            let prev_option_ids_len = survey_answers_attributes[curr_idx].option_id.length;
+            let curr_obj = $(`.palette_icons_container .palette_icon#${curr_idx}`);
+            if (curr_option_ids_len > 0) {
+                custom_response[curr_idx]["answerred"] = 1;
+                custom_response[curr_idx]["is_visited"] = 1;
+                custom_response[curr_idx]["not_answerred"] = 0;
+                // Answerred
+                curr_obj.attr('class', 'palette_icon answerred');
+                if ((curr_option_ids_len > 0 && prev_option_ids_len == 0) || (curr_option_ids_len == 0 && prev_option_ids_len > 0)) {
+                    updatePaletteCount();
+                }
+            } else {
+                custom_response[curr_idx]["answerred"] = 0;
+                custom_response[curr_idx]["is_visited"] = 1;
+                custom_response[curr_idx]["not_answerred"] = 1;
+                // Not Answerred
+                curr_obj.attr('class', 'palette_icon not_answerred');
+                if ((curr_option_ids_len > 0 && prev_option_ids_len == 0) || (curr_option_ids_len == 0 && prev_option_ids_len > 0)) {
+                    updatePaletteCount();
+                }
+            }
+            survey_answers_attributes[curr_idx].option_id = option_ids;
+        }
+
+        function isPresent(answer_list, option_id) {
+            let flag = false;
+            answer_list.forEach(element => {
+                if (element == option_id) {
+                    flag = true;
+                    return false;
+                }
+            });
+            return flag;
+        }
+
+        function optionsTemplate(ques_type, ques_id, option_attributes, index) {
+            let option_template = ''
+            let answer_list = survey_answers_attributes[curr_idx].option_id;
+            console.log(survey_answers_attributes[curr_idx].option_id);
+            if (ques_type == 'MCQ') {
+                option_attributes.forEach(element => {
+                    let option_value = element.statement;
+                    let option_id = element.id;
+                    let is_option_marked = isPresent(answer_list, option_id) ? 'checked' : '';
+                    option_template += `<label class="user_side_option_container" for=${option_id}>
+                    <input type="radio" name=${ques_id} id=${option_id} value=${option_value} ${is_option_marked}>
+                    <div class="user_side_option">${option_value}</div>
+                </label>`;
+                });
+
+            } else if (ques_type == "CHECKBOX") {
+                option_attributes.forEach(element => {
+                    let option_value = element.statement;
+                    let option_id = element.id;
+                    let is_option_marked = isPresent(answer_list, option_id) ? 'checked' : '';
+                    option_template += `<label class="user_side_option_container" for=${option_id}>
+                    <input type="checkbox" name=${ques_id} id=${option_id} value=${option_value} ${is_option_marked}>
+                    <div class="user_side_option">${option_value}</div>
+                </label>`;
+                });
+
+            } else if (ques_type == "DROPDOWN") {
+                option_attributes.forEach(element => {
+                    let option_value = element.statement;
+                    let option_id = element.id;
+                    let is_option_marked = isPresent(answer_list, option_id) ? 'selected' : '';
+                    option_template += `<option value=${option_value} id=${option_id} ${is_option_marked}>${option_value}</option>`;
+                });
+                option_template = `<label class="user_side_option_container" for=${ques_id}>
+                <select id=${ques_id} class="user_side_dropdown">
+                    <option value="null" id=''>Select</option>
+                    ${option_template}
+                </select>
+            </label>`
+            }
+
+            return option_template;
+        }
+
+        function getQuestion(curr_idx) {
+            let ques_id = custom_response[curr_idx].question_id;
+            let ques = custom_response[curr_idx].statement;
+            let ques_type = custom_response[curr_idx].ques_type;
+            let desc = custom_response[curr_idx].description;
+            let option_attributes = custom_response[curr_idx].options_attributes;
+            let option_template = optionsTemplate(ques_type, ques_id, option_attributes, curr_idx);
+            $(".user_side_question_main_container").html(`<div class="user_side_question_wrapper" id=${ques_id} ques_type=${ques_type}>
+        <div class="user_side_question"><span class="question_index">${curr_idx + 1}. </span>${ques}</div>
+        <div class="user_side_question_description">${desc}</div>
+        <div class="user_side_options_main_container">
+            ${option_template}
+        </div>
+    </div>`);
+
+            $(".user_side_option_container input,.user_side_option_container select").click(function () {
+                getOptionIds(ques_id, ques_type, curr_idx);
+            })
+        }
+
+        function changePaletteColor(curr_idx, ques_number_track) {
+            ques_number_track.text(`Question ${curr_idx + 1} of ${total_questions}`);
+            // console.log("curr idx -> ", curr_idx);
+            // console.log("prev idx -> ", prev_idx);
+            if (curr_idx != prev_idx) {
+                $(`.palette_icons_container .palette_icon:nth-child(${curr_idx + 1})`).addClass("active_pallete_item");
+                $(`.palette_icons_container .palette_icon:nth-child(${prev_idx + 1})`).removeClass("active_pallete_item");
+                // In case of Switch : Check if the previous active state is answered or not 
+                if (custom_response[prev_idx].is_visited == 1 && custom_response[prev_idx].not_answerred == 1) { // Not Answerred
+                    let prev_obj = $(`.palette_icons_container .palette_icon#${prev_idx}`);
+                    if (prev_obj.attr('class') == "palette_icon not_attempted") {
+                        prev_obj.attr('class', 'palette_icon not_answerred');
+                        updatePaletteCount();
+                    }
+                }
+
+                // question logic---------
+                custom_response[curr_idx].is_visited = 1;
+                getQuestion(curr_idx);
+                console.log("prev idx : ", prev_idx, "next_idx : ", curr_idx);
+                // After performing the whole logic ---- 
+                prev_idx = curr_idx;
+            }
+        }
+
+        function getPopUp() {
+            $("body").append(`<div class="pop_up_main_container">
+        <div class="pop_up_container">
+            <div>
+                <div class="success_pop_up_circle-border"></div>
+                <div class="success_pop_up_circle">
+                    <div class="success_box"></div>
+                </div>
+            </div>
+            <span class="text_highlighting1">Submitted!</span>
+            <span class="text_highlighting2">Your response has been successfully submitted</span>
+        </div>
+    </div>`);
+            setTimeout(() => {
+                $(".quiz_wrapper").html("");
+            }, 500);
+        }
+
+
+
+        function startTimer(duration) {
+            var startTime = Date.now();
+            var endTime = startTime + (duration * 1000);
+            var timerElement = $("#timer");
+            function updateTimer() {
+                var currentTime = Date.now();
+                var remainingTime = Math.max(0, endTime - currentTime);
+                var minutes = Math.floor(remainingTime / 60000);
+                var seconds = Math.floor((remainingTime % 60000) / 1000);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                $("#timer").html(`Time Left: ${minutes}:${seconds}`);
+
+                if (currentTime < endTime && !isSubmitted) {
+                    requestAnimationFrame(updateTimer);
+                } else {
+                    // Remove the event listener
+                    window.removeEventListener("beforeunload", blockPage);
+                    if (isSubmitted) {
+                        stoppedTime = Math.floor((Date.now() - startTime) / 1000);
+                        console.log("Timer stopped at", stoppedTime + 1, "seconds.");
+                        user_response_time = stoppedTime + 1;
+                        // Perform any additional actions when the timer is stopped
+                        // Call the API
+                    } else {
+                        user_response_time = duration;
+                        console.log("Timer has ended.");
+                    }
+                    $(".quiz_btn_container").remove();
+                    // Call the submit_user_response API
+                    survey_answers_attributes1 = JSON.parse(JSON.stringify(survey_answers_attributes));
+                    survey_answers_attributes1.forEach(function (obj) {
+                        obj.option_id = JSON.stringify(obj.option_id);
+                    });
+                    // Remove the local storage variable being created
+                    console.log(survey_answers_attributes1, user_response_time);
+                    getPopUp();
+
+                }
+            }
+            updateTimer();
+        }
+
+        function formatTime(seconds) {
+            var minutes = Math.floor(seconds / 60);
+            var remainingSeconds = seconds % 60;
+            var formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+            var formattedSeconds = remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds;
+
+            return `${formattedMinutes}:${formattedSeconds}`;
+        }
+
+        function formatDate(dateString) {
+            var options = { year: 'numeric', month: 'long', day: 'numeric' };
+            var formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+            return formattedDate;
+        }
+
+        function getQuizQuestions() {
+            let date = new Date();
+            let response = {
+                "success": true,
+                "survey_name": "Quiz Name",
+                "survey_description": "This is a user-side template of the quiz with the required features such as switching b/w the questions, keeping the track of attempted questions, time bounded feature",
+                "quiz_instructions": "",
+                "survey_start_date": date,
+                "already_answered": false,
+                "quiz_duration": 3600,
+                "survey_question_details": [
+                    {
+                        "question_id": 54,
+                        "statement": "Which is your favourite company?",
+                        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+                        "is_mandatory": true,
+                        "ques_type": "CHECKBOX",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": null
+                        },
+                        "options_attributes": [
+                            {
+                                "id": 11,
+                                "survey_question_id": 54,
+                                "statement": "A",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.000Z",
+                                "updated_at": "2023-05-16T06:17:11.000Z"
+                            },
+                            {
+                                "id": 12,
+                                "survey_question_id": 54,
+                                "statement": "B",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.001Z",
+                                "updated_at": "2023-05-16T06:17:11.001Z"
+                            },
+                            {
+                                "id": 13,
+                                "survey_question_id": 54,
+                                "statement": "C",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            },
+                            {
+                                "id": 14,
+                                "survey_question_id": 54,
+                                "statement": "D",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            },
+                        ]
+                    },
+                    {
+                        "question_id": 53,
+                        "statement": "Would you recommend [organization] to your friends as an employer?",
+                        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+                        "is_mandatory": true,
+                        "ques_type": "MCQ",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": null
+                        },
+                        "options_attributes": [
+                            {
+                                "id": 92,
+                                "survey_question_id": 53,
+                                "statement": "Absolutely!",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.000Z",
+                                "updated_at": "2023-05-16T06:17:11.000Z"
+                            },
+                            {
+                                "id": 93,
+                                "survey_question_id": 53,
+                                "statement": "Maybe",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.001Z",
+                                "updated_at": "2023-05-16T06:17:11.001Z"
+                            },
+                            {
+                                "id": 94,
+                                "survey_question_id": 53,
+                                "statement": "Not very Likely",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            },
+                            {
+                                "id": 95,
+                                "survey_question_id": 53,
+                                "statement": "Never",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            }
+                        ]
+                    },
+                    {
+                        "question_id": 55,
+                        "statement": "Which product according to you is the best?",
+                        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+                        "is_mandatory": false,
+                        "ques_type": "DROPDOWN",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": null
+                        },
+                        "options_attributes": [
+                            {
+                                "id": 21,
+                                "survey_question_id": 55,
+                                "statement": "Type1",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.000Z",
+                                "updated_at": "2023-05-16T06:17:11.000Z"
+                            },
+                            {
+                                "id": 22,
+                                "survey_question_id": 55,
+                                "statement": "Type2",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.001Z",
+                                "updated_at": "2023-05-16T06:17:11.001Z"
+                            },
+                            {
+                                "id": 23,
+                                "survey_question_id": 55,
+                                "statement": "Type3",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            },
+                        ]
+                    },
+                    {
+                        "question_id": 55,
+                        "statement": "Which product according to you is the best?",
+                        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+                        "is_mandatory": false,
+                        "ques_type": "DROPDOWN",
+                        "weight": 1,
+                        "extras": {
+                            "max_lenght": null,
+                            "min_length": null,
+                            "rating_length": null
+                        },
+                        "options_attributes": [
+                            {
+                                "id": 21,
+                                "survey_question_id": 55,
+                                "statement": "Type1",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.000Z",
+                                "updated_at": "2023-05-16T06:17:11.000Z"
+                            },
+                            {
+                                "id": 22,
+                                "survey_question_id": 55,
+                                "statement": "Type2",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.001Z",
+                                "updated_at": "2023-05-16T06:17:11.001Z"
+                            },
+                            {
+                                "id": 23,
+                                "survey_question_id": 55,
+                                "statement": "Type3",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-05-16T06:17:11.003Z",
+                                "updated_at": "2023-05-16T06:17:11.003Z"
+                            },
+
+                        ]
+                    },
+                ]
+            }
+            if (response.already_answered == false) {
+                // Attach the event listener
+                window.addEventListener("beforeunload", blockPage);
+
+                total_questions = response.survey_question_details.length;
+                // Check the condition if total_questions>0
+                if (total_questions > 0) {
+                    let quiz_name = response.survey_name;
+                    let quiz_desc = response.survey_description;
+                    let quiz_date = formatDate(response.survey_start_date);
+                    let quiz_duration = formatTime(response.quiz_duration);
+                    let btn_text = total_questions == 1 ? `Submit` : `Next Question`;
+                    console.log(quiz_date); // Formatted Output: May 6, 2023
+                    console.log(quiz_duration); // Formatted Output: 03:45
+
+                    custom_response = response.survey_question_details;
+                    not_attempted_cnt = total_questions;
+
+                    for (let i = 0; i < total_questions; i++) {
+                        palette_icons_html += `<div class="palette_icon not_attempted" id=${i}>${i + 1}</div>`;
+                        if (i == 0) {
+                            custom_response[i]["answerred"] = 0;
+                            custom_response[i]["is_visited"] = 1;
+                            custom_response[i]["not_answerred"] = 1;
+
+                        } else {
+                            custom_response[i]["answerred"] = 0;
+                            custom_response[i]["is_visited"] = 0;
+                            custom_response[i]["not_answerred"] = 1;
+                        }
+                        survey_answers_attributes.push(
+                            {
+                                "survey_question_id": custom_response[i].question_id,
+                                "survey_question_type": custom_response[i].ques_type,
+                                "option_id": [],
+                                "resp": ""
+                            }
+                        )
+                    }
+                    getQuizInfo(quiz_name, quiz_desc, quiz_date, quiz_duration, btn_text, total_questions, palette_icons_html);
+
+                    const prev_btn = $("#prev_btn");
+                    const next_btn = $("#next_btn");
+                    const timerElement = $("#timer");
+                    const ques_number_track = $(".palette_text .ques_text");
+                    ques_number_track.text(`Question 1 of ${total_questions}`);
+                    $(`.palette_icons_container .palette_icon:nth-child(1)`).addClass("active_pallete_item");
+
+                    getQuestion(0); // By default
+                    $(".palette_icons_container .palette_icon").click(function () {
+                        curr_idx = parseInt($(this).attr('id'));
+                        if (curr_idx == 0) { // perform no operation 
+                            prev_btn.css({ 'opacity': 0, 'cursor': 'default' });
+                        } else if (curr_idx == total_questions - 1) {
+                            prev_btn.css({ 'opacity': 1, 'cursor': 'pointer' });
+                            next_btn.text("Submit");
+                        } else {
+                            prev_btn.css({ 'opacity': 1, 'cursor': 'pointer' });
+                            next_btn.text("Next Question");
+                        }
+                        changePaletteColor(curr_idx, ques_number_track);
+                    })
+
+                    prev_btn.click(function () {
+                        if (curr_idx == 0) { // perform no operation 
+                            prev_btn.css({ 'opacity': 0, 'cursor': 'default' });
+                        } else {
+                            prev_btn.css({
+                                'opacity': 1,
+                                'cursor': 'pointer'
+                            });
+                            next_btn.text("Next Question");
+                            curr_idx -= 1;
+                            if (curr_idx == 0) {
+                                prev_btn.css({
+                                    'opacity': 0,
+                                    'cursor': 'default'
+                                });
+                            }
+                            changePaletteColor(curr_idx, ques_number_track);
+                        }
+                    })
+                    next_btn.click(function () {
+                        if (next_btn.text() == "Submit") {
+                            if (confirm("Are you sure you want to submit the quiz")) {
+                                getPopUp();
+                                isSubmitted = true;
+                            }
+                        }
+                        prev_btn.css({ 'opacity': 1, 'cursor': 'pointer' });
+                        if (curr_idx == total_questions - 1) {
+                            next_btn.text("Submit");
+                        } else {
+                            curr_idx += 1;
+                            if (curr_idx == total_questions - 1) {
+                                // isSubmitted = true;
+                                next_btn.text("Submit");
+                                console.log("Submit the response");
+                            }
+                            changePaletteColor(curr_idx, ques_number_track);
+                        }
+                    })
+                    // Call the startTimer function
+                    const duration = response.quiz_duration; // 1 minute in seconds
+                    startTimer(duration);
+                } else {
+                    $(".survey_wrapper").html(`<span class="quiz_sub_text">No questions available</span>`);
+                    console.log("No questions available");
+                }
+            } else {
+                $(".survey_wrapper").html(`<span class="quiz_sub_text">Your response has already been submitted</span>`);
+            }
+
+
+        }
+
+
+
+        $(document).ready(function () {
+            getQuizQuestions();
+
+
+
+        })
+
+    </script>
+</body>
+
+</html>
