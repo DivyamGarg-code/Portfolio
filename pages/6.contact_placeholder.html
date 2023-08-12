@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background: #d7d7d7c1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            background: #0F2027;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #555555a7;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+
+        .main_container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .container {
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+            max-width: 200px;
+            width: 100%;
+        }
+
+        .container input {
+            border-radius: 6px;
+        }
+
+        input {
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        input::placeholder {
+            font-size: 16px;
+            /* padding: 5px; */
+        }
+
+        .pattern_container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pattern_item {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .test_case_container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .test_case_container li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main_container">
+        <h2>Contact Placeholder</h2>
+        <div class="container">
+            <input type="text" id="phone" placeholder="" autocomplete="off" maxlength=""
+                oninput="formatPhonePattern(event)" onkeypress="handleKeypressEvent(event)">
+        </div>
+
+        <span>Choose any pattern that you want to try</span>
+        <div class="pattern_container">
+            <div class="pattern_item">
+                <input type="radio" name="select_pattern" value="(91) 01234-56789" onchange="handleInputChange(event)">
+                <label for="select_pattern">(91) 01234-56789</label>
+            </div>
+            <div class="pattern_item">
+                <input type="radio" name="select_pattern" value="(123) 456-7890" checked
+                    onchange="handleInputChange(event)">
+                <label for="select_pattern">(123) 456-7890 (default)</label>
+            </div>
+            <div class="pattern_item">
+                <input type="radio" name="select_pattern" value="(11) 12-5" onchange="handleInputChange(event)">
+                <label for="select_pattern">(11) 12-5</label>
+            </div>
+            <div class="pattern_item">
+                <input type="radio" name="select_pattern" value="(9) 0178234-567" onchange="handleInputChange(event)">
+                <label for="select_pattern">(9) 0178234-567</label>
+            </div>
+        </div>
+        <div class="test_case_container">
+            <b>TEST CASES</b>
+            <ul>
+                <li>Restricted the typing of characters other than numbers by implementing a check in the
+                    <b>handleKeypressEvent</b> function.
+                </li>
+                <li>Applied the maximum length limit on the input field based upon the defined number pattern using the
+                    <b>setNumPattern</b> function.
+                </li>
+                <li>Implemented automatic formatting of the number while typing according to the specified pattern in
+                    the
+                    <b>handleInputChange</b> function.
+                </li>
+                <li>Set up the placeholder for the input field based on the selected number pattern using the
+                    <b>setNumPattern</b> function.
+                </li>
+            </ul>
+
+            <b>APPROACH</b>
+            <ul>
+                <li>
+                    When a user removes digits from the middle of the formatted number, the caret jumps to the end
+                    because the
+                    function associated with the oninput event listener is called , which captures the string in the
+                    input box
+                    containing numbers and special characters. The number is then extracted from the string by removing
+                    the
+                    special characters. The extracted number is passed to another function that formats the number
+                    according to
+                    the specified pattern, adding the necessary special characters. The formatted number is then set as
+                    the new
+                    value of the input field using <b> $('#phone').val(formattedNumber)</b>. This triggers the input
+                    event
+                    again, causing the caret to move to the end of the input field, which is the default behavior of the
+                    browser.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+        let num_info = {
+            "pattern": "(123) 456-7890",
+            "code_len": null,
+            "num_len_1": null,
+            "num_len_2": null,
+            "n1": null
+        }
+
+        // getPhoneInfo()
+        function setNumPattern(number) { // This function will update the required information in the num_info object
+            let phone_no = number.split(")")[1].trim().split("-");
+            num_info.num_len_1 = phone_no[0].length;
+            num_info.num_len_2 = phone_no[1].length;
+            num_info.code_len = number.split(")")[0].substr(1).length;
+            // Set the placeholder
+            $("#phone").attr("placeholder", `${num_info.pattern}`);
+            //Set the max-length
+            $("#phone").attr("maxlength", `${num_info.pattern.length}`);
+        }
+
+        function formatedNumber(num) {
+            let number = '';
+            for (let i = 0; i < num.length; i++) {
+                if (num[i] != ' ' && num[i] != '(' && num[i] != ')' && num[i] != '-') {
+                    number += num[i];
+                }
+            }
+            return number;
+        }
+
+        function getNumber(num) {
+            let n1 = num_info.code_len;
+            let n2 = n1 + num_info.num_len_1;
+            let formated_num;
+            // divide into (...) ....-..... 3 parts ... , .... , ..... 
+            let formated_country_code = num.substring(0, n1);
+            if (num.length > n2) { // add "-"
+                formated_num = "(" + num.substring(0, n1) + ") " + num.substring(n1, n2) + "-" + num.substring(n2);
+                $('#phone').val(formated_num);
+            } else if (num.length > n1) { // add () and space
+                formated_num = "(" + formated_country_code + ") " + num.substring(n1);
+                $('#phone').val(formated_num);
+            } else {
+                $('#phone').val(formated_country_code);
+            }
+        }
+
+        function formatPhonePattern(event) {
+            let num = event.target.value;
+            num = formatedNumber(num);
+            getNumber(num);
+        }
+
+        function handleKeypressEvent(event) {
+            if (event.which < 48 || event.which > 57) {
+                event.preventDefault();
+            }
+        }
+
+        function handleInputChange(event) {
+            num_info.pattern = event.target.value;
+            $("#phone").val("");
+            setNumPattern(num_info.pattern);
+        }
+
+        setNumPattern(num_info.pattern); // Set the pattern for the first time
+    </script>
+</body>
+
+</html>

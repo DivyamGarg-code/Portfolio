@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background: #d7d7d7c1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            background: #0F2027;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #555555a7;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+
+        .main_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /*--------------------------------------------------------------------*/
+        .pagination-section {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            justify-content: center;
+            align-items: center;
+            /*max-width: 1440px;*/
+            width: 100%;
+        }
+
+        .pagination-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .pages_main_section {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+
+        .each-pagination-section {
+            height: 26px;
+            min-width: 26px;
+            color: #6E7191;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+
+        .navigating_arrow {
+            width: 34.8px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border: 2px solid rgba(217, 219, 233, 0.7);
+            border-radius: 0px 3px 3px 0px;
+            cursor: pointer;
+        }
+
+        .nominee-all-checkbox {
+            margin: 0px !important;
+        }
+
+        .navigating_arrow:hover {
+            background: #d8d8df;
+        }
+
+        .active_page {
+            font-weight: bold;
+            color: black;
+        }
+
+        .navigatePage {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+            font-size: 16px;
+        }
+
+        .navigatePage input {
+            height: 26px;
+            width: 26px;
+        }
+
+        .navigatePage span {
+            background-color: #EFF0F7;
+            padding: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        /*--------------------------------------------------*/
+        .test_case_container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .test_case_container li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main_container">
+        <h2>Pagination</h2>
+        <div class="pagination-section"></div>
+        <div class="test_case_container">
+            <b>TEST CASES</b>
+            <ul>
+                <li>Flexibility to set the page limit that ishow many pages can be displayed on the screen at once using
+                    <b>showPageCnt</b> variable. Here the page limit is set as 5.
+                </li>
+                <li>Option to visit the specific page number by adding it in the given input box and either clicking
+                    <b>Enter</b> or the <b>Go To</b> button handling the case if entered page number exceeds the total
+                    number of pages.
+                </li>
+                <li>Implemented <b>previous</b> and <b>next arrow</b> functionality along with the necessary
+                    checks(which occurs when the page number is either 1st or last).
+                </li>
+
+            </ul>
+
+            <b>APPROACH</b>
+            <ul>
+                <li><b>Initialization and Configuration:</b>
+                    The script starts by initializing variables like pageNo, selected_entry,
+                    counter, totalPages, showPageCnt, and perPageEntries, totalPages defines
+                    the total number of pages, and showPageCnt is the maximum number of visible page numbers in the
+                    pagination section.</li>
+                <li><b>NavigatePage Function:</b>This function is called when the user manually enters a page number and
+                    presses Enter. It validates the input, checks if the entered page number is within bounds, and
+                    updates the pagination accordingly.</li>
+                <li><b>handleNumberResiriction Function:</b>This function restricts the input to numeric values and
+                    handles the Enter key press to trigger the NavigatePage function.</li>
+                <li><b>updatePage Function:</b>This function updates the page and selected entry, highlights the active
+                    page, and triggers any necessary actions like API calls.</li>
+                <li><b>updatePageMainSection Function:</b>This function generates the HTML for the main pagination
+                    section, creating clickable page number elements.</li>
+                <li><b>highlightSelectedPage Function:</b>This function highlights the currently selected page.</li>
+                <li><b>leftNavigationHandler and rightNavigationHandler Functions:</b>These functions handle the left
+                    and right arrow navigation respectively. They update the counter, recalculate the first and last
+                    page indices, and update the pagination display accordingly.
+                </li>
+                <li><b>applyPagination Function:</b>This function generates the pagination UI elements based on the
+                    configuration. It handles cases where the total number of pages is less than or greater than
+                    showPageCnt.</li>
+                <li><b>Document Ready Event:</b>The $(document).ready event ensures that the pagination is applied when
+                    the page loads.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+        let pageNo = 1; // by default page number is 1
+        let selected_entry = 1; // By default selected entry is 1
+        let counter = 1; // By default counter is one
+
+        //----------- Set accordingly....
+        let totalPages = 100; // Total Number of pages 
+        let showPageCnt = 5; // Here you can set the max number of pages that you want to be made visible on the screen
+
+        let first_page_index, last_page_index; // It will keep track of first and last index of pages according to the showPageCnt
+        let perPageEntries = 5;
+
+        function NavigatePage() {
+            let page_num = parseInt($(".navigatePage input").val());
+            $(".navigatePage input").val(page_num);
+            if (page_num > 0 && page_num <= totalPages) {
+                // Apply the loop and check at which nearest position the current number is placed such that the first and last index of the pages that are visible should not exceed the range
+                for (let i = 0; i < showPageCnt; i++) {
+                    console.log((page_num - i), (page_num - i + showPageCnt - 1)); // First and last index
+                    if ((page_num - i) > 0 && (page_num - i + showPageCnt - 1) <= totalPages) {
+                        counter = page_num - i;
+                        $("#left_navigating_arrow").css({ 'cursor': `${counter == 1 ? "not-allowed" : "pointer"}` });
+                        $("#right_navigating_arrow").css({ 'cursor': `${(counter + showPageCnt - 1) == totalPages ? "not-allowed" : "pointer"}` });
+                        $(".pages_main_section").html(`${updatePageMainSection(counter)}`);
+                        updatePage(page_num); // Select the particular page
+                        return;
+                    }
+                }
+            } else {
+                $(".navigatePage input").val('');
+            }
+        }
+
+        function handleNumberResiriction(event) {
+            if (event.which != 8 && event.which != 0 && (event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+            if (event.which == 13) {
+                NavigatePage();
+            }
+        }
+
+        // Function to update the Page
+        function updatePage(id) {
+            pageNo = id;
+            if (selected_entry != pageNo) { // API will not be called if clicked on the same selected page
+                //-----------------------------------------------------------------------
+                $(".each-pagination-section.active_page").removeClass("active_page");
+                $("#" + pageNo + ".each-pagination-section").addClass("active_page");
+                selected_entry = pageNo;
+                console.log("selected page -> ", selected_entry);
+                $("#selectedPage").text(selected_entry);
+                //-----------------------------------------------------------------------
+                // applyPagination();
+                // Call the API
+            } else {
+                $("#" + selected_entry + ".each-pagination-section").addClass("active_page");
+            }
+        }
+
+        function updatePageMainSection(counter) {
+            let pages_html_chunk = '';
+            for (let i = 0; i < showPageCnt; i++) {
+                pages_html_chunk += `<div id="${counter + i}" class="each-pagination-section" onclick="updatePage(${counter + i})">${counter + i}</div>`;
+            }
+            return pages_html_chunk;
+        }
+
+        function highlightSelectedPage(counter) {
+            let k = counter + showPageCnt;
+            for (let i = counter; i < k; i++) {
+                if (i == selected_entry) {
+                    $("#" + selected_entry + ".each-pagination-section").addClass("active_page");
+                    return; // Break the loop and exit the function
+                }
+            }
+        }
+
+        function leftNavigationHandler() {
+            first_page_index = counter;
+            last_page_index = counter + showPageCnt - 1;
+            if (first_page_index > 1) { // decrement the counter and update the entries
+                $(".each-pagination-section.active_page").removeClass("active_page");
+                counter--;
+                $("#left_navigating_arrow").css({ 'cursor': `${counter == 1 ? "not-allowed" : "pointer"}` });
+                $("#right_navigating_arrow").css({ 'cursor': 'pointer' });
+                $(".pages_main_section").html(`${updatePageMainSection(counter)}`);
+                highlightSelectedPage(counter);
+            } else {
+                // no action
+                $("#left_navigating_arrow").css({ 'cursor': 'not-allowed' });
+                console.log("Can't move left");
+            }
+        }
+
+        function rightNavigationHandler() {
+            first_page_index = counter;
+            last_page_index = counter + showPageCnt - 1;
+            if (last_page_index < totalPages) { // increment the counter and update the entries
+                $(".each-pagination-section.active_page").removeClass("active_page");
+                counter++;
+                $("#right_navigating_arrow").css({ 'cursor': `${(counter + showPageCnt - 1) == totalPages ? "not-allowed" : "pointer"}` });
+                $("#left_navigating_arrow").css({ 'cursor': 'pointer' });
+                $(".pages_main_section").html(`${updatePageMainSection(counter)}`);
+                highlightSelectedPage(counter);
+            } else {
+                // no action
+                $("#right_navigating_arrow").css({ 'cursor': 'not-allowed' });
+                console.log("Can't move right");
+            }
+        }
+
+        function applyPagination() {
+            //------------------- Pagination code -------------------
+            let pagesSection = ""
+            if (totalPages <= showPageCnt) {
+                if (totalPages != 1) {
+                    for (let i = 1; i <= totalPages; i++) {
+                        pagesSection += '<div id="' + i + '" class="each-pagination-section" onclick="updatePage(' + i + ')">' + i + '</div>'
+                    }
+                    $(".pagination-section").html(`<div class="pagination-container" id="pagination-container">
+                        <div class="pages_main_section">${pagesSection}</div>
+                        </div>`);
+                    $("#" + selected_entry + ".each-pagination-section").addClass("active_page");
+                } else {
+                    $("#pagination-container").html(``);
+                }
+            } else {
+                $(".pagination-section").html(`<div class="navigatePage">
+            <span title="Go to a specific page number" onclick="NavigatePage()">Go To </span>
+            <input type="text" autocomplete="off" onkeypress="handleNumberResiriction(event)">
+            <b title="Selected Page" id="selectedPage">${selected_entry}</b>
+            <div style="height: 26px;border: 1px solid rgba(0, 0, 0, 0.418);"></div>
+            <b title="Total number of pages">${totalPages}</b>
+        </div>
+        <div class="pagination-container" id="pagination-container"><button id="left_navigating_arrow" class="navigating_arrow" onclick="leftNavigationHandler()">
+    <img src="/images/left_arrow.svg" alt="error">
+</button>
+<div class="pages_main_section">${updatePageMainSection(counter)}</div>
+<button id="right_navigating_arrow" class="navigating_arrow" onclick="rightNavigationHandler()">
+    <img src="/images/right_arrow.svg" alt="error">
+</button></div>`);
+                // ------------------------------------------------------------------
+                console.log("selected page -> ", selected_entry);
+                $("#" + selected_entry + ".each-pagination-section").addClass("active_page");
+                $("#left_navigating_arrow").css({ 'cursor': `${counter == 1 ? "not-allowed" : "pointer"}` });
+                $("#right_navigating_arrow").css({ 'cursor': `${(counter + showPageCnt - 1) == totalPages ? "not-allowed" : "pointer"}` });
+                //--------------------------------------------------------------------------
+            }
+            //---------------------------------------------------------------------------------------------
+        }
+
+
+        $(document).ready(function () {
+            applyPagination();
+        })
+    </script>
+</body>
+
+</html>

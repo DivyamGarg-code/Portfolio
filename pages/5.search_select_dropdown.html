@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         * {
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background: #d7d7d7c1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            background: #0F2027;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #555555a7;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+
+        .hide {
+            display: none !important;
+        }
+
+        .main_container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .test_case_container {
+            max-width: 800px;
+            width: 100%;
+        }
+        .test_case_container span{
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .test_case_container ul {
+            margin-top: 10px;
+        }
+
+        .test_case_container li {
+            margin-bottom: 10px;
+        }
+
+        /* ------------------------------------- */
+        .search_box_container {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .search_input {
+            border-radius: 6px;
+            height: 40px;
+            width: 100%;
+            padding: 0px 10px;
+            font-size: 16px;
+        }
+
+        .search_box_container .search_dropdown {
+            width: 100%;
+            border-right: 1px solid black;
+            border-left: 1px solid black;
+            border: 1px solid #DBE7F0;
+            box-shadow: 0px 1px 24px rgba(0, 0, 0, 0.08);
+            list-style: none;
+            max-height: 247.2px;
+            overflow-y: auto;
+        }
+
+        .search_box_container .search_dropdown li {
+            border-bottom: 1px solid #DBE7F0;
+        }
+
+        .search_box_container .search_dropdown li:hover {
+            background-color: #c5c5c582;
+            cursor: pointer;
+        }
+
+        .search_info {
+            display: flex;
+            flex-direction: column;
+            font-size: 16px;
+            gap: 5px;
+            flex-wrap: wrap;
+            word-wrap: break-word;
+            padding: 10px;
+        }
+
+        .search_info_active_state {
+            background-color: #c5c5c5;
+        }
+
+        /* --------------- Search Selected List ------------- */
+        .search_selected_items_container {
+            margin-top: 10px;
+            width: 100%;
+            max-height: 400px;
+            overflow-y: auto;
+            gap: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .search_selected_item {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            background: #808080ad;
+            ;
+            width: fit-content;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .search_cross {
+            width: 15px;
+            cursor: pointer;
+        }
+
+        .error_msg {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        /* -------------------------------------------------------------------------- */
+    </style>
+</head>
+
+<body>
+    <div class="main_container">
+        <h2>Search-Select Filter Dropdown</h2>
+        <div class="search_box_container" id="search_box1">
+            <input type="text" class="search_input" placeholder="Search by Email,Name etc">
+            <span class="error_msg"></span>
+            <ul class="search_dropdown hide"></ul>
+            <div class="search_selected_items_container"></div>
+        </div>
+        <div class="test_case_container">
+            <span>TEST CASES COVERED:</span>
+            <ul>
+                <li><b>User Input Handling:</b>
+                    <ul>
+                        <li>The script responds to user input in the search input field.</li>
+                        <li>As the user types, the dropdown displays suggestions based on the search criteria.</li>
+                        <li>Suggestions are based on whether the search term matches any part of the data (name, email, or employeeID).</li>
+                        <li>Here you can search by <b>name:</b> test_1 <b>email:</b> test1@hotmail.com <b>empID:</b> emp01 by entering minimum 3 characters.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Dropdown Generation:</b>
+                    <ul>
+                        <li>The script generates dropdown items based on the provided response data.</li>
+                        <li>Duplicate items are not added to the dropdown, and only distinct suggestions are displayed.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Dropdown Navigation:</b>
+                    <ul>
+                        <li>Users can navigate through dropdown suggestions using arrow keys (Up and Down). </li>
+                        <li>Pressing Enter selects the highlighted suggestion.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Maximum Selection Limit: [ 3 in this case ]</b>
+                    <ul>
+                        <li>Users can select a maximum number of items (max_search_select_limit) from the dropdown.</li>
+                        <li>If the selection limit is reached, an error message is displayed.</b></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Selected Items Display:</b>
+                    <ul>
+                        <li>The selected items are displayed below the search input as the user selects them.</li>
+                        <li>Users can remove selected items by clicking on a delete icon.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <span>APPROACH</span>    
+            <ul>
+                <li><b>Data Generation:</b>
+                    <ul>
+                        <li>An array response of 20 objects with different properties is generated.</li>
+                        <li>Each object contains id, name, email, and employeeID.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Initialization:</b>
+                    <ul>
+                        <li>A <b>selected_items</b> object keeps track of selected items for each search box.</li>
+                        <li>A <b>search_info_obj</b> object maintains active index, total items, and other search-related information.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Debounce Function:</b>
+                    <ul>
+                        <li>A <b>debounce</b> function is used to limit API requests triggered by user input.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Search Term Validation:</b>
+                    <ul>
+                        <li>The function <b>isSearchTermPresent</b> checks if the search term is present in any of the object properties.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Dropdown Update:</b>
+                    <ul>
+                        <li>The function <b>updateDropdown</b> handles user input in the search field.</li>
+                        <li>Based on the search term, it filters the response and generates dropdown items.</li>
+                        <li>The active index, total items, and other search-related information are updated in <b>search_info_obj</b>.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Dropdown Interaction:</b>
+                    <ul>
+                        <li>Users can navigate through dropdown suggestions using arrow keys.</li>
+                        <li>Pressing Enter selects a suggestion and adds it to the selected items.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Selected Items Display:</b>
+                    <ul>
+                        <li>The function <b>getSearchSelectedItems</b> generates HTML to display selected items.</li>
+                        <li>Selected items are shown below the search input.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Limiting Selection:</b>
+                    <ul>
+                        <li>If the maximum selection limit is reached, an error message is displayed.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><b>Document Ready Event:</b>
+                    <ul>
+                        <li>The script is initialized on document ready.</li>
+                        <li>The <b>updateDropdown</b> function is triggered when the user types in the search input.</li>
+                    </ul>
+                </li>
+            </ul>
+           <ul>
+            <li>Overall, the script handles various user interactions such as searching, selecting, navigating the dropdown, and displaying selected items. It implements both UI interactions and data management aspects to create a functional search-select filter dropdown.</li>
+           </ul>
+            
+        </div>
+    </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        let response = [];
+        for (let i = 1; i <= 20; i++) {
+            let object = {
+                id: i,
+                name: `test_${i}`,
+                email: `test${i}@hotmail.com`,
+                employeeID: `emp${i.toString().padStart(2, '0')}`
+            };
+            response.push(object);
+        }
+        console.log(response);
+
+        let selected_items = {
+            "search_box1": {},
+        };
+
+        let search_info_obj = {
+            "active_idx": -1,
+            "total_items": 0,
+            "search_box_id": "",
+            "dropdown_items": {}
+        }
+
+        let scroll_height;
+
+        const max_search_select_limit = 3;
+        // Get the dropdown item information that you want to show......
+        function getSearchInfoItem(obj) {
+            let search_info_html = ``;
+            Object.entries(obj).forEach(([key, value]) => {
+                search_info_html += `<span><b>${key} :</b> ${value}</span>`
+            })
+            return search_info_html;
+        }
+
+        // delete the selected info.......
+        function deleteInfo(curr_obj, id) {
+            let search_id = $(curr_obj).closest(".search_box_container").attr("id");
+            $(curr_obj).closest(".search_selected_item").remove();
+            delete selected_items[search_id][`user_${id}`];
+        }
+
+        // Get the list of selected search items
+        function getSearchSelectedItems(selected_items, curr_obj) {
+            let selected_items_html = ``;
+            Object.values(selected_items).forEach((item) => {
+                selected_items_html += `<div class="search_selected_item" >
+            <span>${item.email}</span>
+            <img title="delete" class="search_cross" src="https://cdn0.workadvantage.in/images/cdn_upload/cdn/2788/6cb3d1c1c4.svg" alt="error" onclick=deleteInfo(this,${item.id})>
+        </div>`;
+            })
+            curr_obj.html(selected_items_html).removeClass("hide");
+        }
+
+        // Debounce function to limit the number of API requests
+        function debounce(func, wait) {
+            let timeout;
+            return function () {
+                const context = this;
+                const args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    func.apply(context, args);
+                }, wait);
+            };
+        }
+
+        function isSearchTermPresent(search_obj, searchTerm) {
+            for (const search_string of Object.values(search_obj)) {
+                if (search_string != null && search_string.toString().toLowerCase().includes(searchTerm)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        function updateDropdown(event) {
+            const curr_obj = $(this);
+            let searchTerm = curr_obj.val().trim().toLowerCase();
+            search_info_obj.search_box_id = curr_obj.closest(".search_box_container").attr("id");
+            let search_box_id = search_info_obj.search_box_id;
+            // const search_box_id = curr_obj.closest(".search_box_container").attr("id");
+            // console.log(search_box_id, searchTerm);
+            let search_dropdown_html = ``;
+            search_info_obj.dropdown_items = {};
+            let active_state = false;
+            const search_dropdown = $(`#${search_box_id} .search_dropdown`);
+            const selected_item_container = $(`#${search_box_id} .search_selected_items_container`);
+            const error_msg = $(`#${search_box_id} .error_msg`);
+            // selected_item_container.removeClass("hide");
+            error_msg.html(``);
+            if (searchTerm.length > 2) {
+                // --------------------------------------
+                // Case : 2 -> Hardcoded Response
+                // --------------------------------------
+                // Initiallize... Reseting the values
+                search_info_obj.active_idx = -1;
+                search_info_obj.total_items = 0;
+                // --------------------------------------
+                let name, email, designation, user_id, employee_id, user_key, search_obj;
+                response.forEach((info) => {
+                    name = info.name;
+                    email = info.email;
+                    designation = info.designation;
+                    user_id = info.id;
+                    employee_id = info.employeeID;
+                    user_key = `user_${user_id}`;
+                    search_obj = { "name": name, "email": email, "empID": employee_id }; // This info will be displayed as the dropdown item and based upon this search will be done
+                    // console.log(name,email,designation,id);search_info
+
+                    // check whether the current item is present in the response or not...
+                    if (isSearchTermPresent(search_obj, searchTerm)) {
+                        // check whether the current item is already present in the selected_items object or not...
+                        let isAlreadySelected = Object.values(selected_items[search_box_id]).filter(item => item.id == user_id).length != 0;
+                        if (!isAlreadySelected) {
+                            // console.log(name, email, designation);
+                            search_info_obj.dropdown_items[`user_${user_id}`] = info;
+                            search_dropdown_html += `<li><div class="search_info" id=${user_key} onclick="searchClickHandler(this)">${getSearchInfoItem(search_obj)}</div></li>`
+                            search_info_obj.total_items++;
+                        }
+                    }
+                })
+                console.log(search_info_obj.dropdown_items);
+                if (search_dropdown_html.length != 0) {
+                    search_dropdown.css('scroll-behavior', 'auto');
+                    search_dropdown.html(search_dropdown_html).removeClass("hide");
+                    scroll_height = $(`#${search_box_id} .search_dropdown li`).outerHeight();
+                    search_dropdown.scrollTop(0);
+                    search_dropdown.css('scroll-behavior', 'smooth');
+                    selected_item_container.addClass("hide");
+                    $(`#${search_box_id} .search_input`).off("keydown").on("keydown", function (event) {
+                        // If you want to pass multiple params
+                        handleKeydownEvent(event, search_info_obj);
+                    });
+                } else {
+                    search_dropdown.html(``).addClass("hide");
+                    selected_item_container.removeClass("hide");
+                    error_msg.html(`No Data Found`);
+                    $(`#${search_box_id} .search_input`).off("keydown");
+                }
+            } else {
+                search_dropdown.html(``).addClass("hide");
+                $(`#${search_box_id} .search_input`).off("keydown");
+            }
+        }
+
+        function searchClickHandler(elem) {
+            // console.log(elem);
+            let curr_obj = $(elem);
+            let user_key = curr_obj.attr("id");
+            let search_box_id = curr_obj.closest(".search_box_container").attr("id");
+            let search_dropdown = curr_obj.closest(".search_dropdown");
+            let selected_item_container = curr_obj.closest(".search_box_container").find(`.search_selected_items_container`);
+            let selected_items_cnt = Object.keys(selected_items[search_box_id]).length;
+            if (selected_items_cnt == max_search_select_limit) {
+                $(`#${search_box_id} .error_msg`).html(`Max Select Limit : ${selected_items_cnt}`);
+            } else {
+                selected_items[search_box_id][`${user_key}`] = search_info_obj.dropdown_items[`${user_key}`];
+            }
+            getSearchSelectedItems(selected_items[search_box_id], selected_item_container);
+            search_dropdown.html(``).addClass("hide");
+        }
+
+        function handleKeydownEvent(event, search_info_obj) {
+            let event_key = event.key;
+            let active = search_info_obj.active_idx;
+            let prev = search_info_obj.active_idx;
+            let cnt = search_info_obj.total_items;
+            let search_box_id = search_info_obj.search_box_id;
+            let user_key;
+            if (event_key == "ArrowDown" || event_key == "ArrowUp" || event_key == "Enter") {
+                event.preventDefault();
+                if (event_key == "ArrowDown") { // Arrow Down......increment
+                    active = (active + 1) % cnt;
+                    $(`.search_dropdown li:nth-child(${prev + 1})`).removeClass("search_info_active_state");
+                    $(`.search_dropdown li:nth-child(${active + 1})`).addClass("search_info_active_state");
+                    // window.location.href=`#${$(`.search_dropdown li:nth-child(${active + 1})`).find(".search_info").attr("id")}`;
+                    $(".search_dropdown").scrollTop(scroll_height * active);
+                    search_info_obj.active_idx = active;
+                } else if (event_key == "ArrowUp") { // Arrow Up......decrement
+                    if (active == -1) {
+                        active = 0;
+                    }
+                    active = (active + cnt - 1) % cnt;
+                    $(`.search_dropdown li:nth-child(${prev + 1})`).removeClass("search_info_active_state");
+                    $(`.search_dropdown li:nth-child(${active + 1})`).addClass("search_info_active_state");
+                    $(".search_dropdown").scrollTop(scroll_height * active);
+                    // window.location.href=`#${$(`.search_dropdown li:nth-child(${active + 1})`).find(".search_info").attr("id")}`;
+                    search_info_obj.active_idx = active;
+                } else if (event_key == "Enter") {
+                    if (active != -1) {
+                        let curr_obj = $(`#${search_box_id} .search_dropdown li:nth-child(${active + 1})`).find(".search_info");
+                        searchClickHandler(curr_obj);
+                        $(`#${search_box_id} .search_input`).off("keydown");
+                    }
+                }
+                // console.log(event.key, search_info_obj);
+            }
+        }
+
+        $(document).ready(function () {
+            $("#search_box1 .search_input").on('input', debounce(updateDropdown, 300));
+
+            // $(document).on("click", function (event) {
+            //     let curr_obj = $(event.target).closest(".search_box_container");
+            //     console.log(curr_obj.length);
+            //     if (curr_obj.length == 0) {
+            //         $(".search_dropdown").hasClass("hide");
+            //         // let search_box_id=curr_obj.attr("id");
+            //         // let selected_item_container = curr_obj.find(`.search_selected_items_container`);
+            //         // let search_dropdown = curr_obj.find(".search_dropdown");
+            //         // getSearchSelectedItems(selected_items[search_box_id], selected_item_container);
+            //         // search_dropdown.html(``).addClass("hide");
+            //     } else {
+            //         console.log("not Present");
+            //     }
+            // });
+        })
+    </script>
+</body>
+
+</html>
