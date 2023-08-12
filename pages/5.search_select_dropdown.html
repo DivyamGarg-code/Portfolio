@@ -69,6 +69,7 @@
         }
 
         .search_input {
+            margin: auto;
             border-radius: 6px;
             height: 40px;
             width: 100%;
@@ -85,6 +86,8 @@
             list-style: none;
             max-height: 247.2px;
             overflow-y: auto;
+            margin: 0;
+            padding: 0;
         }
 
         .search_box_container .search_dropdown li {
@@ -156,7 +159,7 @@
 
 <body>
     <div class="main_container">
-        <h2>Search-Select Filter Dropdown</h2>
+        <h2 style="text-align: center;">Search-Select Filter Dropdown</h2>
         <div class="search_box_container" id="search_box1">
             <input type="text" class="search_input" placeholder="Search by Email,Name etc">
             <span class="error_msg"></span>
