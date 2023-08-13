@@ -13,16 +13,19 @@
             font-family: 'Poppins', sans-serif;
             font-style: normal;
             overflow-x: hidden;
+            color: white;
         }
 
-     
+        body{
+            background: #0F2027;
+        }
 
         .main_container {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            gap: 30px;
+            gap: 100px;
             width: 100vw;
             margin-top: 20px;
         }
@@ -33,15 +36,29 @@
             height: 500px;
             border: 1px solid black;
         }
+
+        .components_container{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 50px;
+            font-weight: 400;
+        }
+        .components_container a:hover{
+            color: #A43AFF;
+        }
     </style>
 </head>
 
 <body>
     <div class="main_container">
         <h1>Generic Components</h1>
-        <a href="/pages/5.search_select_dropdown.html">Search-Select Filter Dropdown</a>
-        <a href="/pages/4.pagination.html">Pagination</a>
-        <a href="/pages/6.contact_placeholder.html">Contact Placeholder</a>
+        <div class="components_container">
+            <a href="/pages/5.search_select_dropdown.html">Search-Select Filter Dropdown</a>
+            <a href="/pages/4.pagination.html">Pagination</a>
+            <a href="/pages/6.contact_placeholder.html">Contact Placeholder</a>
+        </div>
     </div>
 </body>
 
