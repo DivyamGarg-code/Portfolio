@@ -755,7 +755,7 @@
                 </div>
             </div>
             <span class="text_highlighting1">Submitted!</span>
-            <span class="text_highlighting2">Your response has been successfully submitted</span>
+            <span class="text_highlighting2">Your response has been submitted successfully<br>You can check the console window</span>
         </div>
     </div>`);
             setTimeout(() => {
@@ -837,7 +837,7 @@
                     {
                         "question_id": 54,
                         "statement": "Which is your favourite company?",
-                        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+                        "description": "You can select multiple options also",
                         "is_mandatory": true,
                         "ques_type": "CHECKBOX",
                         "weight": 1,
@@ -850,7 +850,7 @@
                             {
                                 "id": 11,
                                 "survey_question_id": 54,
-                                "statement": "A",
+                                "statement": "Microsoft",
                                 "placeholder": null,
                                 "option_type": null,
                                 "extra": null,
@@ -860,7 +860,7 @@
                             {
                                 "id": 12,
                                 "survey_question_id": 54,
-                                "statement": "B",
+                                "statement": "Apple",
                                 "placeholder": null,
                                 "option_type": null,
                                 "extra": null,
@@ -870,7 +870,7 @@
                             {
                                 "id": 13,
                                 "survey_question_id": 54,
-                                "statement": "C",
+                                "statement": "Google",
                                 "placeholder": null,
                                 "option_type": null,
                                 "extra": null,
@@ -880,7 +880,7 @@
                             {
                                 "id": 14,
                                 "survey_question_id": 54,
-                                "statement": "D",
+                                "statement": "Atlassian",
                                 "placeholder": null,
                                 "option_type": null,
                                 "extra": null,
@@ -1046,10 +1046,10 @@
                     },
                     {
                         "question_id": 55,
-                        "statement": "Which product according to you is the best?",
-                        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
-                        "is_mandatory": false,
-                        "ques_type": "DROPDOWN",
+                        "statement": "Which mobile operating system do you use on your primary device?",
+                        "description": "Select the operating system that you primarily use on your mobile device.",
+                        "is_mandatory": true,
+                        "ques_type": "MCQ",
                         "weight": 1,
                         "extras": {
                             "max_lenght": null,
@@ -1058,36 +1058,45 @@
                         },
                         "options_attributes": [
                             {
-                                "id": 21,
+                                "id": 100,
                                 "survey_question_id": 55,
-                                "statement": "Type1",
+                                "statement": "Android",
                                 "placeholder": null,
                                 "option_type": null,
                                 "extra": null,
-                                "created_at": "2023-05-16T06:17:11.000Z",
-                                "updated_at": "2023-05-16T06:17:11.000Z"
+                                "created_at": "2023-08-14T00:00:00.000Z",
+                                "updated_at": "2023-08-14T00:00:00.000Z"
                             },
                             {
-                                "id": 22,
+                                "id": 101,
                                 "survey_question_id": 55,
-                                "statement": "Type2",
+                                "statement": "iOS (iPhone)",
                                 "placeholder": null,
                                 "option_type": null,
                                 "extra": null,
-                                "created_at": "2023-05-16T06:17:11.001Z",
-                                "updated_at": "2023-05-16T06:17:11.001Z"
+                                "created_at": "2023-08-14T00:00:00.000Z",
+                                "updated_at": "2023-08-14T00:00:00.000Z"
                             },
                             {
-                                "id": 23,
+                                "id": 102,
                                 "survey_question_id": 55,
-                                "statement": "Type3",
+                                "statement": "Other",
                                 "placeholder": null,
                                 "option_type": null,
                                 "extra": null,
-                                "created_at": "2023-05-16T06:17:11.003Z",
-                                "updated_at": "2023-05-16T06:17:11.003Z"
+                                "created_at": "2023-08-14T00:00:00.000Z",
+                                "updated_at": "2023-08-14T00:00:00.000Z"
                             },
-
+                            {
+                                "id": 103,
+                                "survey_question_id": 55,
+                                "statement": "I don't use a mobile device",
+                                "placeholder": null,
+                                "option_type": null,
+                                "extra": null,
+                                "created_at": "2023-08-14T00:00:00.000Z",
+                                "updated_at": "2023-08-14T00:00:00.000Z"
+                            }
                         ]
                     },
                 ]
@@ -1202,7 +1211,7 @@
                     console.log("No questions available");
                 }
             } else {
-                $(".survey_wrapper").html(`<span class="quiz_sub_text">Your response has already been submitted</span>`);
+                $(".survey_wrapper").html(`<span class="quiz_sub_text">Your response has already been submitted <b></b>You can check the console window</span>`);
             }
 
 
