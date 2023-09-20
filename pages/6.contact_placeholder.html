@@ -93,7 +93,7 @@
 
 <body>
     <div class="main_container">
-        <h2  style="text-align: center;">Contact Placeholder</h2>
+        <h2 style="text-align: center;">Contact Placeholder</h2>
         <div class="container">
             <input type="text" id="phone" placeholder="" autocomplete="off" maxlength=""
                 oninput="formatPhonePattern(event)" onkeypress="handleKeypressEvent(event)">
@@ -186,14 +186,19 @@
         function formatedNumber(num) {
             let number = '';
             for (let i = 0; i < num.length; i++) {
-                if (num[i] != ' ' && num[i] != '(' && num[i] != ')' && num[i] != '-') {
+                if (num[i] != ' ' && num[i] != '(' && num[i] != ')' && num[i] != '-' && (num[i]>='0' && num[i]<='9')) {
                     number += num[i];
                 }
             }
+            console.log("Number : ",number);
             return number;
         }
 
         function getNumber(num) {
+            if(num.length==0){
+                $('#phone').val("");
+                return;
+            }
             let n1 = num_info.code_len;
             let n2 = n1 + num_info.num_len_1;
             let formated_num;
