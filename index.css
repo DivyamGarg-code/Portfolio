@@ -478,7 +478,7 @@
     word-spacing: 3px;
     overflow: auto;
     height: 130px;
-
+    padding: 0px 3px;
 }
 
 .card_container:hover {
