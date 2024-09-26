@@ -463,7 +463,7 @@
 
 }
 
-.project_description {
+/* .project_description {
     text-align: center;
     word-spacing: 3px;
     display: -webkit-box;
@@ -471,6 +471,13 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+
+} */
+.project_description {
+    text-align: center;
+    word-spacing: 3px;
+    overflow: auto;
+    height: 130px;
 
 }
 
